@@ -1,15 +1,16 @@
-# Project
+# Vue Project Template - Todo Application
 
 ### Environments
 
 - Dev: https://vue.project-template.development.appwi.se
-- Test: REPLACE_ME
-- Staging: REPLACE_ME
-- Production: REPLACE_ME
+- Test: TBD (waiting for Sysops)
+- Staging: TBD (waiting for Sysops)
+- Production: TBD (waiting for Sysops)
 
 ### Links
-- Docs: https://vue.project-template.development.appwi.se/api/docs
-- Linear: REPLACE_ME
+- API Docs: https://onboarding-todo.internal.appwi.se/api/docs
+- Figma: https://www.figma.com/design/hebgv4Qx8VanMAQkO1NFpa/Onboarding-to-do?node-id=467-4945&t=ZQdFuBpxYroJec67-0
+- Linear: TBD (waiting for access)
 
 # Startup sequence
 
