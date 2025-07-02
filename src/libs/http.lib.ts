@@ -1,0 +1,42 @@
+import { client } from '@/client/client.gen.ts'
+import { API_BASE_URL } from '@/constants/environment.constant.ts'
+import { oAuthClient } from '@/libs/oAuth.lib.ts'
+import { i18nPlugin } from '@/plugins/i18n.plugin.ts'
+import { useAuthStore } from '@/stores/auth.store.ts'
+import { ObjectUtil } from '@/utils/object.util.ts'
+
+export function setupHttpClient(): void {
+  client.setConfig({
+    baseUrl: API_BASE_URL,
+    headers: {
+      'Accept-Language': i18nPlugin.global.locale.value,
+    },
+    querySerializer: ObjectUtil.serialize,
+  })
+
+  client.interceptors.request.use(async (request: Request): Promise<Request> => {
+    const isLoggedIn = await oAuthClient.isLoggedIn()
+
+    if (!isLoggedIn) {
+      return request
+    }
+
+    const token = await oAuthClient.getAccessToken()
+
+    request.headers.set('Authorization', `Bearer ${token}`)
+
+    return request
+  })
+
+  client.interceptors.response.use((response: Response): Response => {
+    if (response?.status !== 401) {
+      return response
+    }
+
+    const authStore = useAuthStore()
+
+    authStore.logout()
+
+    return response
+  })
+}

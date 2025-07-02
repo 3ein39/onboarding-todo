@@ -47,3 +47,80 @@ coverage
 /blob-report/
 /playwright/.cache/
 projectStructure.cache.json
+
+# Vite build outputs
+*.tsbuildinfo
+
+# PWA files
+sw.js
+workbox-*.js
+
+# TypeScript
+*.d.ts.map
+
+# API client generated files (if you want to regenerate them)
+# src/client/
+
+# OS generated files
+Thumbs.db
+*.tmp
+*.temp
+
+# Docker
+.dockerignore
+
+# Environment files (additional)
+.env.development.local
+.env.test.local
+.env.production.local
+.env.staging
+.env.staging.local
+
+# Package manager lock files (keep only pnpm-lock.yaml)
+package-lock.json
+yarn.lock
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# MSW (Mock Service Worker) generated files
+public/mockServiceWorker.js.map
+
+# Storybook build outputs
+storybook-static
+
+# Temporary folders
+tmp/
+temp/
+
+# Backup files
+*.bak
+*.backup
+*.orig
+
+# JetBrains IDEs
+*.iml
+.idea/
+*.ipr
+*.iws
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*

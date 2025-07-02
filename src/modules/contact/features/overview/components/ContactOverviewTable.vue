@@ -1,0 +1,91 @@
+<script setup lang="ts">
+import type {
+  PaginatedData,
+  Pagination,
+  TableColumn,
+} from '@wisemen/vue-core-components'
+import { VcTable } from '@wisemen/vue-core-components'
+import type { VNode } from 'vue'
+import {
+  computed,
+  h,
+} from 'vue'
+import { useI18n } from 'vue-i18n'
+
+import { TEST_ID } from '@/constants/testId.constant'
+import type { ContactIndex } from '@/models/contact/index/contactIndex.model'
+import type { ContactIndexPagination } from '@/models/contact/index/contactIndexPagination.model'
+import ContactOverviewTableEmailCell from '@/modules/contact/features/overview/components/ContactOverviewTableEmailCell.vue'
+import ContactOverviewTableNameCell from '@/modules/contact/features/overview/components/ContactOverviewTableNameCell.vue'
+import ContactOverviewTablePhoneCell from '@/modules/contact/features/overview/components/ContactOverviewTablePhoneCell.vue'
+import ContactOverviewTableStatusCell from '@/modules/contact/features/overview/components/ContactOverviewTableStatusCell.vue'
+
+const props = defineProps<{
+  isLoading: boolean
+  data: PaginatedData<ContactIndex> | null
+  pagination: Pagination<ContactIndexPagination>
+}>()
+
+const i18n = useI18n()
+
+const columns = computed<TableColumn<ContactIndex>[]>(() => [
+  {
+    testId: TEST_ID.CONTACTS.TABLE.NAME_LINK,
+    isSortable: true,
+    cell: (contact): VNode => h(ContactOverviewTableNameCell, {
+      contact,
+    }),
+    headerLabel: i18n.t('module.contact.name'),
+    key: 'name',
+  },
+  {
+    testId: TEST_ID.CONTACTS.TABLE.EMAIL_LINK,
+    cell: (contact): VNode => h(ContactOverviewTableEmailCell, {
+      contact,
+    }),
+    headerLabel: i18n.t('module.contact.email'),
+    key: 'email',
+  },
+  {
+    testId: TEST_ID.CONTACTS.TABLE.PHONE_LINK,
+    cell: (contact): VNode => h(ContactOverviewTablePhoneCell, {
+      contact,
+    }),
+    headerLabel: i18n.t('module.contact.phone'),
+    key: 'phone',
+  },
+  {
+    testId: 'contact-status',
+    cell: (contact): VNode => h(ContactOverviewTableStatusCell, {
+      contact,
+    }),
+    headerLabel: i18n.t('module.contact.status'),
+    key: 'status',
+  },
+])
+</script>
+
+<template>
+  <VcTable
+    :columns="columns"
+    :data="props.data"
+    :data-test-id="TEST_ID.CONTACTS.TABLE.CONTAINER"
+    :is-first-column-sticky="true"
+    :is-loading="props.isLoading"
+    :pagination="props.pagination"
+    :row-action="{
+      type: 'link',
+      to: (contact) => ({
+        name: 'contact-detail',
+        params: {
+          contactUuid: contact.uuid,
+        },
+      }),
+      label: (contact) => contact.name ?? '-',
+    }"
+    :class-config="{
+      row: 'hover:bg-secondary',
+      cell: 'group-hover/row:bg-secondary',
+    }"
+  />
+</template>

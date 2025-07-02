@@ -1,0 +1,22 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "http://localhost:3000",
+      "localStorage": [
+        {
+          "name": "tokens",
+          "value": "{\"expires_at\":1767222000000000,\"access_token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NjcyMjIwMDAwMDB9.awuAePNwRlYxo6-1Hda-jlg_zbeUPImYvJ93Hs3q-7E\",\"id_token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NjcyMjIwMDAwMDB9.awuAePNwRlYxo6-1Hda-jlg_zbeUPImYvJ93Hs3q-7E\",\"refresh_token\":\"refresh_token\",\"token_type\":\"Bearer\"}"
+        },
+        {
+          "name": "isSidebarCollapsed",
+          "value": "false"
+        },
+        {
+          "name": "preferences",
+          "value": "{\"appearance\":\"light\",\"enableHighContrast\":false,\"enableKeyboardShortcutHints\":true,\"fontSize\":\"default\",\"language\":\"en-US\"}"
+        }
+      ]
+    }
+  ]
+}
