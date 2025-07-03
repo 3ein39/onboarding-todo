@@ -36,6 +36,13 @@ const mainItems = computed<NavigationGroup[]>(() => [
           name: 'contact-overview',
         },
       },
+      {
+        icon: 'userSquare',
+        label: i18n.t('module.todo.title'),
+        to: {
+          name: 'todo-overview',
+        },
+      },
     ],
     label: 'General',
   },

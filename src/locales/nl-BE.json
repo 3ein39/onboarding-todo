@@ -1,6 +1,7 @@
 {
   "module.notification.notification_center.title": "Notifications",
   "module.notification.notification_center.trigger.label": "Notifications",
+  "module.todo.title": "Todos",
   "module.notification.notification_center.unread": "Unread",
   "module.notification.notification_center.all": "All",
   "module.notification.notification_center.empty.text": "🎉 You're all caught up!",

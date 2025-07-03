@@ -4,6 +4,7 @@ import type { RouteRecordRaw } from 'vue-router'
 import { authMiddleware } from '@/middlewares/auth.middleware'
 import { authRoutes } from '@/modules/auth'
 import { contactRoutes } from '@/modules/contact'
+import { todoRoutes } from '@/modules/todo'
 import type { RoutesProccessed } from '@/types/global/vueRouter'
 
 export const routes = [
@@ -27,6 +28,7 @@ export const routes = [
        * Authenticated routes
        */
       ...contactRoutes,
+      ...todoRoutes,
     ],
   },
   /**
