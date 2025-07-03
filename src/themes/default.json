@@ -21,7 +21,7 @@
     "error-300": { "light": "#FDA29B", "dark": "#FDA29B" },
     "error-400": { "light": "#F97066", "dark": "#F97066" },
     "error-500": { "light": "#F04438", "dark": "#F04438" },
-    "error-600": { "light": "#D92D20", "dark": "#D92D20" },
+    "error-600": { "light": "#ff0000", "dark": "#ff0000" },
     "error-700": { "light": "#B42318", "dark": "#B42318" },
     "error-800": { "light": "#912018", "dark": "#912018" },
     "error-900": { "light": "#7A271A", "dark": "#7A271A" },

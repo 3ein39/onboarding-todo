@@ -73,6 +73,7 @@ export const TEST_ID = {
       CONTAINER: 'todos-table-container',
       CREATED_AT: 'todos-table-created-at',
       DESCRIPTION: 'todos-table-description',
+      DUE_DATE: 'todos-table-due-date',
       TITLE: 'todos-table-title',
     },
   },

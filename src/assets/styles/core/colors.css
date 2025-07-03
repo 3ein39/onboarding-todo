@@ -3,7 +3,8 @@
   --fg-secondary: var(--gray-700);
   --fg-secondary-hover: var(--gray-800);
   --fg-tertiary: var(--gray-600);
-  --fg-tertiary-hover: var(--gray-700);  --fg-quaternary-hover: var(--gray-500);
+  --fg-tertiary-hover: var(--gray-700);
+  --fg-quaternary-hover: var(--gray-500);
   --fg-white: var(--white);
   --fg-disabled: var(--gray-600);
   --fg-disabled-subtle: var(--gray-700);
@@ -19,8 +20,9 @@
   --fg-success-primary: var(--success-400);
   --fg-success-secondary: var(--success-500);
 
-  --black-pearl: #1B212D;
-  --text-primary: var(--black-pearl);ary: var(--gray-400);
+  --black-pearl: #1b212d;
+  --text-primary: var(--black-pearl);
+  ary: var(--gray-400);
   --fg-quaternary-hover: var(--gray-500);
   --fg-white: var(--white);
   --fg-disabled: var(--gray-400);
@@ -37,7 +39,7 @@
   --fg-success-primary: var(--success-600);
   --fg-success-secondary: var(--success-500);
 
-  --black-pearl: #1B212D;
+  --black-pearl: #1b212d;
   --text-primary: var(--black-pearl);
   --text-primary-on-brand: var(--white);
   --text-secondary: var(--gray-700);
