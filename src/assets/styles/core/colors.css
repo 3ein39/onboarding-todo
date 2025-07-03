@@ -3,8 +3,24 @@
   --fg-secondary: var(--gray-700);
   --fg-secondary-hover: var(--gray-800);
   --fg-tertiary: var(--gray-600);
-  --fg-tertiary-hover: var(--gray-700);
-  --fg-quaternary: var(--gray-400);
+  --fg-tertiary-hover: var(--gray-700);  --fg-quaternary-hover: var(--gray-500);
+  --fg-white: var(--white);
+  --fg-disabled: var(--gray-600);
+  --fg-disabled-subtle: var(--gray-700);
+  --fg-brand-primary: var(--brand-400);
+  --fg-brand-primary-alt: var(--brand-400);
+  --fg-brand-secondary: var(--brand-500);
+  --fg-brand-secondary-alt: var(--brand-500);
+  --fg-brand-secondary-hover: var(--brand-400);
+  --fg-error-primary: var(--error-400);
+  --fg-error-secondary: var(--error-500);
+  --fg-warning-primary: var(--warning-400);
+  --fg-warning-secondary: var(--warning-500);
+  --fg-success-primary: var(--success-400);
+  --fg-success-secondary: var(--success-500);
+
+  --black-pearl: #1B212D;
+  --text-primary: var(--black-pearl);ary: var(--gray-400);
   --fg-quaternary-hover: var(--gray-500);
   --fg-white: var(--white);
   --fg-disabled: var(--gray-400);
@@ -21,7 +37,8 @@
   --fg-success-primary: var(--success-600);
   --fg-success-secondary: var(--success-500);
 
-  --text-primary: var(--gray-900);
+  --black-pearl: #1B212D;
+  --text-primary: var(--black-pearl);
   --text-primary-on-brand: var(--white);
   --text-secondary: var(--gray-700);
   --text-secondary-hover: var(--gray-800);

@@ -1,3 +1,10 @@
 @theme inline {
   /* Define your application's custom theme configuration here */
 }
+
+/* Apply Inter font to the whole application */
+@layer base {
+  html, body {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  }
+}

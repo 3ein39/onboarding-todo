@@ -5,6 +5,7 @@ import type { ContactUuid } from '@/models/contact/contactUuid.model'
 import type { ContactIndexPagination } from '@/models/contact/index/contactIndexPagination.model'
 import type { CalendarDate } from '@/models/date/calendarDate.model.ts'
 import type { NotificationIndexPagination } from '@/models/notification/notificationIndexPagination.model.ts'
+import type { TodoIndexPagination } from '@/models/todo/index/todoIndexPagination.model'
 import type { UserIndexPagination } from '@/models/user/index/userIndexPagination.model.ts'
 import type { UserUuid } from '@/models/user/userUuid.model'
 import type {
@@ -39,6 +40,9 @@ interface ProjectQueryKeys {
   }
   shiftCount: {
     date: ComputedRef<CalendarDate>
+  }
+  todoIndex: {
+    paginationOptions?: ComputedRef<PaginationOptions<TodoIndexPagination>>
   }
   userDetail: {
     userUuid: ComputedRef<UserUuid>

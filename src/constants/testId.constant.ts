@@ -64,6 +64,18 @@ export const TEST_ID = {
   SHARED: {
     MALFORMED_RESPONSE_TOAST: 'shared-malformed-response-toast',
   },
+  TODOS: {
+    OVERVIEW: {
+      CREATE_BUTTON: 'todos-overview-create-button',
+    },
+    TABLE: {
+      COMPLETED: 'todos-table-completed',
+      CONTAINER: 'todos-table-container',
+      CREATED_AT: 'todos-table-created-at',
+      DESCRIPTION: 'todos-table-description',
+      TITLE: 'todos-table-title',
+    },
+  },
   USERS: {
     CREATE: {
       SUCCESS_TOAST: 'users-create-success-toast',
