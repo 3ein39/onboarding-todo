@@ -4,7 +4,6 @@
 
 @variant button-hover (&:where([data-loading="false"]):not(:disabled):hover);
 
-
 @variant dark {
   &:where(.dark, .dark *) {
     @slot;
@@ -41,6 +40,11 @@
   --spacing-9xl: 6rem; /* 96px */
   --spacing-10xl: 8rem; /* 128px */
   --spacing-11xl: 10rem; /* 160px */
+
+  /* Custom Colors */
+  --catskill-white: #f0f4fa;
+  --solitude: #e9edf6;
+  --periwinkel: #cdd4e3;
 }
 
 @theme inline {
@@ -139,7 +143,6 @@
   /* ------------------------------------------------------------------------ */
   /* TEXT COLORS                                                              */
   /* ------------------------------------------------------------------------ */
-
   --text-color-primary: var(--text-primary);
   --text-color-primary-on-brand: var(--text-primary-on-brand);
   --text-color-secondary: var(--text-secondary);
@@ -166,7 +169,6 @@
   /* ------------------------------------------------------------------------ */
   /* BACKGROUND COLORS                                                        */
   /* ------------------------------------------------------------------------ */
-
   --background-color-primary: var(--bg-primary);
   --background-color-primary-alt: var(--bg-primary-alt);
   --background-color-primary-hover: var(--bg-primary-hover);
@@ -202,7 +204,6 @@
   /* ------------------------------------------------------------------------ */
   /* BORDER COLORS                                                            */
   /* ------------------------------------------------------------------------ */
-
   --border-color-primary: var(--border-primary);
   --border-color-secondary: var(--border-secondary);
   --border-color-secondary-alt: var(--border-secondary-alt);
@@ -217,7 +218,6 @@
   /* ------------------------------------------------------------------------ */
   /* SPACING                                                                  */
   /* ------------------------------------------------------------------------ */
-
   --margin-none: var(--spacing-none);
   --margin-xxs: var(--spacing-xxs);
   --margin-xs: var(--spacing-xs);
@@ -275,7 +275,6 @@
   /* ------------------------------------------------------------------------ */
   /* BORDER RADIUS                                                            */
   /* ------------------------------------------------------------------------ */
-
   --radius-*: initial;
   --radius-none: 0rem;
   --radius-xxs: 0.125rem;
@@ -304,11 +303,9 @@
   --line-height-5xl: 3.75rem; /* 60px (display-lg) */
   --line-height-6xl: 4.5rem; /* 72px (display-xl) */
   --line-height-7xl: 5.625rem; /* 90px (display-2xl) */
-
   /* ------------------------------------------------------------------------ */
   /* FONT SIZES& LINE HEIGHTS                                                 */
   /* ------------------------------------------------------------------------ */
-
   --text-*: initial;
   --text-xs: 0.75rem;
   --text-xs--line-height: var(--line-height-xs);
@@ -336,7 +333,6 @@
   /* ------------------------------------------------------------------------ */
   /* FONT WEIGHTS                                                             */
   /* ------------------------------------------------------------------------ */
-
   --font-weight-*: initial;
   --font-weight-light: 300;
   --font-weight-regular: 400;
@@ -347,7 +343,6 @@
   /* ------------------------------------------------------------------------ */
   /* SHADOWS                                                                  */
   /* ------------------------------------------------------------------------ */
-
   --shadow-*: initial;
   --shadow-xs: 0px 1px 2px 0px #00000010;
   --shadow-sm: 0px 1px 3px 0px rgba(10, 13, 18, 0.1);
@@ -363,7 +358,6 @@
   /* ------------------------------------------------------------------------ */
   /* ANIMATIONS                                                               */
   /* ------------------------------------------------------------------------ */
-
   --animate-spinner: loading-spinner-rotate 2s linear infinite;
   --animate-spinner-path: loading-spinner-path 1.5s ease-in-out infinite;
 

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {
   useVcDialog,
-  VcIcon,
   VcKeyboardShortcut,
   VcKeyboardShortcutProvider,
   VcThemeProvider,
@@ -41,25 +40,18 @@ const commandMenuDialog = useVcDialog({
               type="button"
               class="
                 flex h-10 min-w-72 cursor-text items-center justify-between
-                gap-md rounded-md border border-solid border-primary
-                bg-transparent px-lg outline-offset-0 outline-brand-500
+                gap-md rounded-md border border-(--solitude) bg-white px-lg
+                outline-offset-0 outline-brand-500
               "
               v-bind="commandMenuDialog.getTriggerProps()"
               @click="commandMenuDialog.open()"
             >
               <AppGroup>
-                <Motion layout-id="icon-left">
-                  <VcIcon
-                    icon="search"
-                    class="size-4 text-tertiary"
-                  />
-                </Motion>
-
                 <Motion
                   layout-id="placeholder"
                   class="
                     inline-block items-center justify-between text-sm
-                    whitespace-nowrap text-white/50
+                    whitespace-nowrap text-black !opacity-30
                   "
                 >
                   {{ i18n.t('component.command_menu.placeholder') }}

@@ -13,8 +13,7 @@ import { RouterView } from 'vue-router'
     }"
     class="
       grid h-dvh grid-cols-[auto_1fr] grid-rows-[auto_1fr] overflow-hidden
-      bg-gradient-to-br from-brand-800 to-brand-950
-      dark:from-brand-800 dark:to-brand-900
+      bg-(--catskill-white)
     "
   >
     <Primitive
@@ -33,7 +32,7 @@ import { RouterView } from 'vue-router'
 
     <div
       class="
-        overflow-auto rounded-tl-4xl bg-primary
+        overflow-auto bg-primary
         [grid-area:content]
       "
     >

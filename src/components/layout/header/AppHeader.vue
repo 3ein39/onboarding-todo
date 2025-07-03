@@ -1,15 +1,7 @@
 <script setup lang="ts">
-import AppSeparator from '@/components/app/AppSeparator.vue'
 import AppGroup from '@/components/app/group/AppGroup.vue'
 import CommandMenuTrigger from '@/components/command-menu/CommandMenuTrigger.vue'
-import AppHeaderSettings from '@/components/layout/header/AppHeaderSettings.vue'
-import AppHeaderUserProfile from '@/components/layout/header/AppHeaderUserProfile.vue'
-import type { UserDetail } from '@/models/user/detail/userDetail.model.ts'
-import { NotificationCenter } from '@/modules/notification/components.ts'
-
-const props = defineProps<{
-  user: UserDetail
-}>()
+import AppHeaderLogout from '@/components/layout/header/AppHeaderLogout.vue'
 
 const emit = defineEmits<{
   signOut: []
@@ -33,18 +25,7 @@ function onSignOut(): void {
     <AppGroup
       justify="end"
     >
-      <AppHeaderSettings />
-      <NotificationCenter />
-
-      <AppSeparator
-        class="!h-7 !bg-fg-quaternary"
-        direction="vertical"
-      />
-
-      <AppHeaderUserProfile
-        :user="props.user"
-        @sign-out="onSignOut"
-      />
+      <AppHeaderLogout @sign-out="onSignOut" />
     </AppGroup>
   </div>
 </template>

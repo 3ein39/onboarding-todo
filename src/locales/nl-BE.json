@@ -23,7 +23,7 @@
   "component.command_menu.aria_description": "Search for anything in the app",
   "component.command_menu.aria_title": "Global search dialog",
   "component.command_menu.breadcrumb.language": "Language",
-  "component.command_menu.placeholder": "What are you looking for?",
+  "component.command_menu.placeholder": "Zoeken...",
   "component.header.search": "Global search",
   "component.keyboard_shortcut.then": "then",
   "component.password_input.hide_password": "Hide password",

@@ -1,5 +1,6 @@
 import type { Component } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
+
 export const todoRoutes = [
   {
     path: '/todos',
