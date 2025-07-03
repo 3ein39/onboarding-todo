@@ -2,16 +2,6 @@
 
 import { z } from 'zod';
 
-export const zUserNotFoundError = z.object({
-    detail: z.string().optional(),
-    status: z.enum([
-        '404'
-    ]),
-    code: z.enum([
-        'user_not_found'
-    ])
-});
-
 export const zSetUserRolesCommand = z.object({
     roleUuids: z.array(z.string().uuid())
 });
@@ -161,16 +151,6 @@ export const zClearRolePermissionsCacheCommand = z.object({
     ]).optional()
 });
 
-export const zRoleNotFoundError = z.object({
-    detail: z.string().optional(),
-    status: z.enum([
-        '404'
-    ]),
-    code: z.enum([
-        'role_not_found'
-    ])
-});
-
 export const zUpdateRoleCommand = z.object({
     name: z.string()
 });
@@ -187,6 +167,16 @@ export const zRoleResponse = z.object({
 
 export const zViewRoleIndexResponse = z.object({
     items: z.array(zRoleResponse)
+});
+
+export const zRoleNotFoundError = z.object({
+    detail: z.string().optional(),
+    status: z.enum([
+        '404'
+    ]),
+    code: z.enum([
+        'role_not_found'
+    ])
 });
 
 export const zUpdateRolesPermissionsCommandItem = z.object({
@@ -246,14 +236,6 @@ export const zCoordinatesCommand = z.object({
 });
 
 export const zAddressCommand = z.object({
-    placeName: z.union([
-        z.string(),
-        z.null()
-    ]),
-    placeId: z.union([
-        z.string(),
-        z.null()
-    ]),
     country: z.union([
         z.string(),
         z.null()
@@ -278,10 +260,7 @@ export const zAddressCommand = z.object({
         z.string(),
         z.null()
     ]),
-    coordinates: z.union([
-        zCoordinatesCommand,
-        z.null()
-    ])
+    coordinates: zCoordinatesCommand
 });
 
 /**
@@ -1450,13 +1429,8 @@ export const zGlobalSearchCollectionName = z.enum([
     'contact'
 ]);
 
-export const zSearchCollectionsFilterContactQuery = z.object({
-    isActive: z.boolean().optional()
-});
-
 export const zSearchCollectionsFilterQuery = z.object({
-    collections: z.array(zGlobalSearchCollectionName).optional(),
-    contact: zSearchCollectionsFilterContactQuery.optional()
+    collections: z.array(zGlobalSearchCollectionName).optional()
 });
 
 export const zSearchCollectionUserResponse = z.object({
@@ -1594,6 +1568,12 @@ export const zViewUnreadNotificationsCountResponse = z.object({
     exceedsLimit: z.boolean()
 });
 
+export const zUpdateMyNotificationTypePreferenceCommand = z.object({
+    channel: zNotificationChannel,
+    isEnabled: z.boolean(),
+    types: z.array(zNotificationType)
+});
+
 export const zUserNotificationNotFoundError = z.object({
     detail: z.string().optional(),
     status: z.enum([
@@ -1602,12 +1582,6 @@ export const zUserNotificationNotFoundError = z.object({
     code: z.enum([
         'user_notification_not_found'
     ])
-});
-
-export const zUpdateMyNotificationTypePreferenceCommand = z.object({
-    channel: zNotificationChannel,
-    isEnabled: z.boolean(),
-    types: z.array(zNotificationType)
 });
 
 export const zUpdateMyNotificationPreferencePresetCommand = z.object({
@@ -1697,16 +1671,6 @@ export const zViewJobsIndexResponse = z.object({
     meta: zViewJobsIndexResponseMeta
 });
 
-export const zJobNotFoundError = z.object({
-    detail: z.string().optional(),
-    status: z.enum([
-        '404'
-    ]),
-    code: z.enum([
-        'job_not_found'
-    ])
-});
-
 export const zViewJobDetailResponse = z.object({
     id: z.string().uuid(),
     queueName: zQueueName,
@@ -1747,6 +1711,88 @@ export const zViewJobDetailResponse = z.object({
         z.null()
     ]),
     policy: z.union([
+        z.string(),
+        z.null()
+    ])
+});
+
+export const zGetTodosSortQuery = z.object({
+    key: z.enum([
+        'deadline'
+    ]),
+    order: zSortDirection
+});
+
+export const zGetTodosResponseItem = z.object({
+    uuid: z.string().uuid(),
+    createdAt: z.string().datetime(),
+    updatedAt: z.string().datetime(),
+    title: z.string(),
+    description: z.union([
+        z.string(),
+        z.null()
+    ]),
+    deadline: z.union([
+        z.string().datetime(),
+        z.null()
+    ]),
+    completed: z.boolean()
+});
+
+export const zGetTodosResponse = z.object({
+    items: z.array(zGetTodosResponseItem),
+    meta: zPaginatedOffsetResponseMeta
+});
+
+export const zTodoNotFoundError = z.object({
+    detail: z.string().optional(),
+    status: z.enum([
+        '404'
+    ]),
+    code: z.enum([
+        'todo_not_found'
+    ])
+});
+
+export const zGetTodoResponse = z.object({
+    uuid: z.string().uuid(),
+    createdAt: z.string().datetime(),
+    updatedAt: z.string().datetime(),
+    title: z.string(),
+    description: z.union([
+        z.string(),
+        z.null()
+    ]),
+    deadline: z.union([
+        z.string().datetime(),
+        z.null()
+    ]),
+    completed: z.boolean()
+});
+
+export const zCreateTodoCommand = z.object({
+    title: z.string(),
+    description: z.union([
+        z.string(),
+        z.null()
+    ]),
+    deadline: z.union([
+        z.string(),
+        z.null()
+    ])
+});
+
+export const zCreateTodoResponse = z.object({
+    uuid: z.string().uuid()
+});
+
+export const zUpdateTodoCommand = z.object({
+    title: z.string(),
+    description: z.union([
+        z.string(),
+        z.null()
+    ]),
+    deadline: z.union([
         z.string(),
         z.null()
     ])
@@ -1928,8 +1974,6 @@ export const zUpdateRoleV1Data = z.object({
     query: z.never().optional()
 });
 
-export const zUpdateRoleV1Response = z.void();
-
 export const zCreateFileV1Data = z.object({
     body: zCreateFileCommand,
     path: z.never().optional(),
@@ -1945,8 +1989,6 @@ export const zConfirmFileUploadV1Data = z.object({
     }),
     query: z.never().optional()
 });
-
-export const zConfirmFileUploadV1Response = z.void();
 
 export const zDownloadFileV1Data = z.object({
     body: z.never().optional(),
@@ -2193,3 +2235,64 @@ export const zViewJobDetailV1Data = z.object({
 });
 
 export const zViewJobDetailV1Response = zViewJobDetailResponse;
+
+export const zGetTodosV1Data = z.object({
+    body: z.never().optional(),
+    path: z.never().optional(),
+    query: z.object({
+        pagination: zPaginatedOffsetQuery.optional(),
+        sort: z.array(zGetTodosSortQuery).optional()
+    }).optional()
+});
+
+export const zGetTodosV1Response = zGetTodosResponse;
+
+export const zCreateTodoV1Data = z.object({
+    body: zCreateTodoCommand,
+    path: z.never().optional(),
+    query: z.never().optional()
+});
+
+export const zCreateTodoV1Response = zCreateTodoResponse;
+
+export const zDeleteTodoV1Data = z.object({
+    body: z.never().optional(),
+    path: z.object({
+        todoUuid: z.string()
+    }),
+    query: z.never().optional()
+});
+
+export const zGetTodosV12Data = z.object({
+    body: z.never().optional(),
+    path: z.object({
+        todoUuid: z.string()
+    }),
+    query: z.never().optional()
+});
+
+export const zGetTodosV12Response = zGetTodoResponse;
+
+export const zUpdateTodoV1Data = z.object({
+    body: zUpdateTodoCommand,
+    path: z.object({
+        todoUuid: z.string()
+    }),
+    query: z.never().optional()
+});
+
+export const zCheckTodoV1Data = z.object({
+    body: z.never().optional(),
+    path: z.object({
+        todoUuid: z.string()
+    }),
+    query: z.never().optional()
+});
+
+export const zUncheckTodoV1Data = z.object({
+    body: z.never().optional(),
+    path: z.object({
+        todoUuid: z.string()
+    }),
+    query: z.never().optional()
+});
