@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { VcIcon } from '@wisemen/vue-core-components'
+import {
+  VcDropdownMenu,
+  VcDropdownMenuGroup,
+  VcDropdownMenuItem,
+  VcIcon,
+} from '@wisemen/vue-core-components'
 import {
   computed,
   type PropType,
@@ -24,6 +29,11 @@ const props = defineProps({
   },
 })
 
+const emit = defineEmits<{
+  deleteTodo: [todo: TodoIndex]
+  editTodo: [todo: TodoIndex]
+}>()
+
 function formatDate(dateString: string): string {
   const date = new Date(dateString)
 
@@ -32,6 +42,14 @@ function formatDate(dateString: string): string {
     month: 'short',
     year: 'numeric',
   })
+}
+
+function onEditTodo(todo: TodoIndex): void {
+  emit('editTodo', todo)
+}
+
+function onDeleteTodo(todo: TodoIndex): void {
+  emit('deleteTodo', todo)
 }
 
 const todoItems = computed<TodoIndex[]>(() => {
@@ -64,18 +82,45 @@ const todoItems = computed<TodoIndex[]>(() => {
           >
             {{ todo.title }}
           </h3>
-          <button
-            type="button"
-            class="
-              ml-auto p-1 text-gray-500
-              hover:text-gray-700
-            "
+          <VcDropdownMenu
+            :is-popover-arrow-hidden="true"
+            :popover-side-offset="0"
+            :class-config="{
+              content: 'min-w-0',
+            }"
+            popover-align="end"
           >
-            <VcIcon
-              icon="todoMenuDots"
-              class="size-5"
-            />
-          </button>
+            <template #trigger>
+              <button
+                type="button"
+                class="
+                  ml-auto p-1 text-gray-500
+                  hover:text-gray-700
+                "
+              >
+                <VcIcon
+                  icon="todoMenuDots"
+                />
+              </button>
+            </template>
+
+            <template #content>
+              <VcDropdownMenuGroup>
+                <VcDropdownMenuItem
+                  label="Bewerk to do"
+                  icon="edit"
+                  @select="onEditTodo(todo)"
+                />
+                <hr class="mx-auto w-[90%] border-(--periwinkel)">
+                <VcDropdownMenuItem
+                  :is-destructive="true"
+                  label="Verwijder to do"
+                  icon="trash"
+                  @select="onDeleteTodo(todo)"
+                />
+              </VcDropdownMenuGroup>
+            </template>
+          </VcDropdownMenu>
         </div>
         <p
           v-if="todo.description"

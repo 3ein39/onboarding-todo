@@ -12,6 +12,7 @@ import {
 import AppPage from '@/components/layout/AppPage.vue'
 import TableErrorState from '@/components/table/TableErrorState.vue'
 import { useDocumentTitle } from '@/composables/document-title/documentTitle.composable'
+import type { TodoIndex } from '@/models/todo/index/todoIndex.model'
 import type { TodoIndexPagination } from '@/models/todo/index/todoIndexPagination.model'
 import { useTodoIndexQuery } from '@/modules/todo/api/queries/todoIndex.query'
 import TodoCreateDialog from '@/modules/todo/features/overview/components/TodoCreateDialog.vue'
@@ -43,6 +44,16 @@ function handleSuccess(): void {
   todoIndexQuery.refetch()
 }
 
+function handleEditTodo(todo: TodoIndex): void {
+  // TODO: Open edit dialog
+  console.log('Edit todo:', todo)
+}
+
+function handleDeleteTodo(todo: TodoIndex): void {
+  // TODO: Delete todo
+  console.log('Delete todo:', todo)
+}
+
 const isLoading = computed<boolean>(() => todoIndexQuery.isLoading.value)
 const error = computed<unknown>(() => todoIndexQuery.error.value)
 const paginationData = computed<TodoIndexPagination>(() => ({
@@ -65,6 +76,8 @@ const paginationData = computed<TodoIndexPagination>(() => ({
       :is-loading="isLoading"
       :data="todoIndexQuery.data.value?.data || []"
       :pagination="paginationData"
+      @edit-todo="handleEditTodo"
+      @delete-todo="handleDeleteTodo"
     />
 
     <VcButton
