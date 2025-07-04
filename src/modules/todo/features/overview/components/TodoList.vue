@@ -95,7 +95,7 @@ const todoItems = computed<TodoIndex[]>(() => {
                 type="button"
                 class="
                   ml-auto p-1 text-gray-500
-                  hover:text-gray-700
+                  hover:cursor-pointer hover:text-gray-700
                 "
               >
                 <VcIcon

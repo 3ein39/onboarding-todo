@@ -18,7 +18,7 @@ import type { TodoIndex } from '@/models/todo/index/todoIndex.model'
 import type { TodoIndexPagination } from '@/models/todo/index/todoIndexPagination.model'
 import { useTodoDeleteMutation } from '@/modules/todo/api/mutations/todoDelete.mutation'
 import { useTodoIndexQuery } from '@/modules/todo/api/queries/todoIndex.query'
-import TodoCreateDialog from '@/modules/todo/features/overview/components/TodoCreateDialog.vue'
+import TodoDialog from '@/modules/todo/features/overview/components/TodoDialog.vue'
 import TodoList from '@/modules/todo/features/overview/components/TodoList.vue'
 
 const documentTitle = useDocumentTitle()
@@ -36,13 +36,16 @@ const toast = useVcToast()
 const apiErrorToast = useApiErrorToast()
 
 const isDialogOpen = ref<boolean>(false)
+const selectedTodo = ref<TodoIndex | undefined>(undefined)
 
 function openDialog(): void {
+  selectedTodo.value = undefined
   isDialogOpen.value = true
 }
 
 function closeDialog(): void {
   isDialogOpen.value = false
+  selectedTodo.value = undefined
 }
 
 function handleSuccess(): void {
@@ -50,8 +53,8 @@ function handleSuccess(): void {
 }
 
 function handleEditTodo(todo: TodoIndex): void {
-  // TODO: Open edit dialog
-  console.log('Edit todo:', todo)
+  selectedTodo.value = todo
+  isDialogOpen.value = true
 }
 
 function handleDeleteTodo(todo: TodoIndex): void {
@@ -117,8 +120,9 @@ const paginationData = computed<TodoIndexPagination>(() => ({
       />
     </VcButton>
 
-    <TodoCreateDialog
+    <TodoDialog
       :is-open="isDialogOpen"
+      :todo="selectedTodo"
       @close="closeDialog"
       @success="handleSuccess"
     />
