@@ -8,7 +8,9 @@ import { ResultAsync } from 'neverthrow'
 
 import {
   createTodoV1,
+  deleteTodoV1,
   getTodosV1,
+  updateTodoV1,
 } from '@/client'
 import type { TodoCreateForm } from '@/models/todo/create/todoCreateForm.model'
 import type { TodoIndex } from '@/models/todo/index/todoIndex.model'
@@ -17,8 +19,10 @@ import {
   TodoCreateTransformer,
   TodoIndexPaginationTransformer,
   TodoIndexTransformer,
+  TodoUpdateTransformer,
 } from '@/models/todo/todo.transformer'
 import type { TodoUuid } from '@/models/todo/todoUuid.model'
+import type { TodoUpdateForm } from '@/models/todo/update/todoUpdateForm.model'
 
 export class TodoService {
   static async create(form: TodoCreateForm): Promise<Result<TodoUuid, Error>> {
@@ -28,6 +32,16 @@ export class TodoService {
     }), () => new Error('Failed to create todo'))
 
     return response.map((res) => res.data.uuid as TodoUuid)
+  }
+
+  static async deleteByUuid(todoUuid: TodoUuid): Promise<Result<void, Error>> {
+    const response = await ResultAsync.fromPromise(deleteTodoV1({
+      path: {
+        todoUuid,
+      },
+    }), () => new Error('Failed to delete todo'))
+
+    return response.map(() => {})
   }
 
   static async getAll(
@@ -44,5 +58,17 @@ export class TodoService {
       data: response.data.items.map(TodoIndexTransformer.fromDto),
       meta: response.data.meta,
     }
+  }
+
+  static async update(todoUuid: TodoUuid, form: TodoUpdateForm): Promise<Result<void, Error>> {
+    const dto = TodoUpdateTransformer.toDto(form)
+    const response = await ResultAsync.fromPromise(updateTodoV1({
+      body: dto,
+      path: {
+        todoUuid,
+      },
+    }), () => new Error('Failed to update todo'))
+
+    return response.map(() => {})
   }
 }

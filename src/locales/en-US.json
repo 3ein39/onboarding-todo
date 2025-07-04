@@ -131,6 +131,7 @@
   "module.settings.font_size.small": "Small",
   "module.todo.title": "Todos",
   "module.todo.create_todo": "New to do",
+  "module.todo.edit_todo": "Edit to do",
   "module.todo.title_field": "Title",
   "module.todo.description_field": "Description",
   "module.todo.deadline_field": "Deadline",

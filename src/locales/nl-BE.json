@@ -3,6 +3,7 @@
   "module.notification.notification_center.trigger.label": "Notifications",
   "module.todo.title": "Todos",
   "module.todo.create_todo": "Nieuwe to do",
+  "module.todo.edit_todo": "Bewerk to do",
   "module.todo.title_field": "Mijn nieuwe to do",
   "module.todo.description_field": "Opmerking",
   "module.todo.deadline_field": "Deadline",
