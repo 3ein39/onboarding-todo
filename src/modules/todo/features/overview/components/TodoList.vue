@@ -36,9 +36,7 @@ const emit = defineEmits<{
   toggleComplete: [todo: TodoIndex]
 }>()
 
-function formatDate(dateString: string): string {
-  const date = new Date(dateString)
-
+function formatDate(date: Date): string {
   return date.toLocaleDateString('nl-NL', {
     day: 'numeric',
     month: 'short',
@@ -142,7 +140,7 @@ const todoItems = computed<TodoIndex[]>(() => {
         <div
           v-if="todo.dueDate"
           :data-test-id="TEST_ID.TODOS.TABLE.DUE_DATE"
-          :class="Date.parse(todo.dueDate) < Date.now()
+          :class="todo.dueDate.getTime() < Date.now()
             ? 'text-error-primary'
             : 'text-(--shadow-blue)'"
           class="flex items-center text-sm font-medium"

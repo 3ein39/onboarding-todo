@@ -45,7 +45,7 @@ const isUpdateMode = computed<boolean>(() => Boolean(props.todo))
 const form = useForm({
   initialState: () => ({
     title: props.todo?.title || '',
-    deadline: props.todo?.dueDate ? new Date(props.todo.dueDate) : null,
+    deadline: props.todo?.dueDate || null,
     description: props.todo?.description || null,
   }),
   schema: todoCreateFormSchema,
