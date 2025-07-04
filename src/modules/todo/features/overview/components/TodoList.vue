@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {
+  VcCheckbox,
   VcDropdownMenu,
   VcDropdownMenuGroup,
   VcDropdownMenuItem,
@@ -32,6 +33,7 @@ const props = defineProps({
 const emit = defineEmits<{
   deleteTodo: [todo: TodoIndex]
   editTodo: [todo: TodoIndex]
+  toggleComplete: [todo: TodoIndex]
 }>()
 
 function formatDate(dateString: string): string {
@@ -52,6 +54,10 @@ function onDeleteTodo(todo: TodoIndex): void {
   emit('deleteTodo', todo)
 }
 
+function onToggleComplete(todo: TodoIndex): void {
+  emit('toggleComplete', todo)
+}
+
 const todoItems = computed<TodoIndex[]>(() => {
   return props.data || []
 })
@@ -70,8 +76,12 @@ const todoItems = computed<TodoIndex[]>(() => {
       <div
         :data-test-id="TEST_ID.TODOS.TABLE.COMPLETED"
       >
-        <VcIcon
-          :icon="todo.isCompleted ? 'todoChecked' : 'todoUnchecked'"
+        <VcCheckbox
+          :model-value="todo.isCompleted"
+          :class-config="{
+            control: 'size-6',
+          }"
+          @update:model-value="onToggleComplete(todo)"
         />
       </div>
       <div class="flex-1">

@@ -17,6 +17,7 @@ import { useDocumentTitle } from '@/composables/document-title/documentTitle.com
 import type { TodoIndex } from '@/models/todo/index/todoIndex.model'
 import type { TodoIndexPagination } from '@/models/todo/index/todoIndexPagination.model'
 import { useTodoDeleteMutation } from '@/modules/todo/api/mutations/todoDelete.mutation'
+import { useTodoToggleCompletionMutation } from '@/modules/todo/api/mutations/todoToggleCompletion.mutation'
 import { useTodoIndexQuery } from '@/modules/todo/api/queries/todoIndex.query'
 import TodoDialog from '@/modules/todo/features/overview/components/TodoDialog.vue'
 import TodoList from '@/modules/todo/features/overview/components/TodoList.vue'
@@ -32,6 +33,7 @@ const pagination = usePagination<TodoIndexPagination>({
 
 const todoIndexQuery = useTodoIndexQuery(pagination.paginationOptions)
 const todoDeleteMutation = useTodoDeleteMutation()
+const todoToggleCompletionMutation = useTodoToggleCompletionMutation()
 const toast = useVcToast()
 const apiErrorToast = useApiErrorToast()
 
@@ -78,6 +80,28 @@ function handleDeleteTodo(todo: TodoIndex): void {
   })
 }
 
+function handleToggleComplete(todo: TodoIndex): void {
+  todoToggleCompletionMutation.execute({
+    params: {
+      todoUuid: todo.uuid,
+      isCompleted: todo.isCompleted,
+    },
+  }).then((result) => {
+    result.match(
+      () => {
+        toast.success({
+          title: 'Success',
+          description: todo.isCompleted ? 'Todo unchecked' : 'Todo completed',
+        })
+        todoIndexQuery.refetch()
+      },
+      (error) => {
+        apiErrorToast.show(error)
+      },
+    )
+  })
+}
+
 const isLoading = computed<boolean>(() => todoIndexQuery.isLoading.value)
 const error = computed<unknown>(() => todoIndexQuery.error.value)
 const paginationData = computed<TodoIndexPagination>(() => ({
@@ -102,6 +126,7 @@ const paginationData = computed<TodoIndexPagination>(() => ({
       :pagination="paginationData"
       @edit-todo="handleEditTodo"
       @delete-todo="handleDeleteTodo"
+      @toggle-complete="handleToggleComplete"
     />
 
     <VcButton
