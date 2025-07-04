@@ -1,7 +1,6 @@
 import type { Icon } from '@wisemen/vue-core-components'
 
 export enum CommandMenuCategory {
-  CONTACT = 'contact',
   NAVIGATION = 'navigation',
   SETTINGS = 'settings',
   USER = 'user',

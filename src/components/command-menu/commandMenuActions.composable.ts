@@ -14,25 +14,6 @@ export function useCommandMenuActions(): ComputedRef<CommandMenuAction[]> {
   const settingsDialog = useSettingsDialog()
   const i18n = useI18n()
 
-  const createContactAction = computed<CommandMenuAction>(() => ({
-    id: 'create-contact',
-    isHidden: router.currentRoute.value.name === 'contact-create',
-    breadcrumbs: [],
-    category: CommandMenuCategory.CONTACT,
-    icon: 'plus',
-    keywords: [
-      'create contact',
-      'new contact',
-      'add contact',
-    ],
-    label: i18n.t('component.command_menu.action.create_new_contact'),
-    onSelect: (): void => {
-      router.push({
-        name: 'contact-create',
-      })
-    },
-  }))
-
   const goToSettingsAction = computed<CommandMenuAction>(() => ({
     id: 'open-settings',
     breadcrumbs: [],
@@ -46,25 +27,6 @@ export function useCommandMenuActions(): ComputedRef<CommandMenuAction[]> {
     label: i18n.t('component.command_menu.action.open_settings'),
     onSelect: (): void => {
       settingsDialog.open()
-    },
-  }))
-
-  const goToContactsAction = computed<CommandMenuAction>(() => ({
-    id: 'open-contacts',
-    isHidden: router.currentRoute.value.name === 'contact-overview',
-    breadcrumbs: [],
-    category: CommandMenuCategory.NAVIGATION,
-    icon: 'arrowRight',
-    keywords: [
-      'contacts',
-      'go to contacts',
-      'open contacts',
-    ],
-    label: i18n.t('component.command_menu.action.open_contacts'),
-    onSelect: (): void => {
-      router.push({
-        name: 'contact-overview',
-      })
     },
   }))
 
@@ -198,8 +160,6 @@ export function useCommandMenuActions(): ComputedRef<CommandMenuAction[]> {
 
   return computed<CommandMenuAction[]>(() => [
     goToSettingsAction.value,
-    goToContactsAction.value,
-    createContactAction.value,
     appearanceAction.value,
     notificationsAction.value,
     enableLightModeAction.value,

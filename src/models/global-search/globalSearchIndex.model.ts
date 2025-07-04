@@ -1,5 +1,4 @@
 import type { GlobalSearchCollectionName } from '@/client'
-import type { ContactUuid } from '@/models/contact/contactUuid.model.ts'
 import type { UserUuid } from '@/models/user/userUuid.model.ts'
 
 interface BaseGlobalSearchEntity {
@@ -13,13 +12,7 @@ interface GlobalSearchUser extends BaseGlobalSearchEntity {
   type: GlobalSearchCollectionName.USER
 }
 
-interface GlobalSearchContact extends BaseGlobalSearchEntity {
-  uuid: ContactUuid
-  name: string
-  type: GlobalSearchCollectionName.CONTACT
-}
-
 export interface GlobalSearchIndex {
-  entity: GlobalSearchContact | GlobalSearchUser
+  entity: GlobalSearchUser
   textMatch: number
 }

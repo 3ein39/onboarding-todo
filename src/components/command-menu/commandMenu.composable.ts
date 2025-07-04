@@ -8,7 +8,6 @@ import {
   ref,
   watch,
 } from 'vue'
-import { useRouter } from 'vue-router'
 
 import { useGlobalSearchIndexQuery } from '@/api/global-search/queries/globalSearchIndex.query'
 import { GlobalSearchCollectionName } from '@/client'
@@ -27,9 +26,9 @@ function globalSearchCollectionNameToCategory(
   collectionName: GlobalSearchCollectionName,
 ): CommandMenuCategory {
   switch (collectionName) {
-    case GlobalSearchCollectionName.CONTACT:
-      return CommandMenuCategory.CONTACT
     case GlobalSearchCollectionName.USER:
+      return CommandMenuCategory.USER
+    default:
       return CommandMenuCategory.USER
   }
 }
@@ -37,7 +36,6 @@ function globalSearchCollectionNameToCategory(
 export function useCommandMenu(): UseCommandMenu {
   const searchTerm = ref<string>('')
   const debouncedSearchTerm = useDebounce(searchTerm, 100)
-  const router = useRouter()
 
   const localActions = useCommandMenuActions()
 
@@ -74,14 +72,8 @@ export function useCommandMenu(): UseCommandMenu {
         keywords: [],
         label: item.entity.name,
         onSelect: () => {
-          if (item.entity.type === GlobalSearchCollectionName.CONTACT) {
-            router.push({
-              name: 'contact-detail',
-              params: {
-                contactUuid: item.entity.uuid,
-              },
-            })
-          }
+          // Currently only USER entities are supported
+          // Add navigation logic here if needed
         },
       } as CommandMenuAction
     })

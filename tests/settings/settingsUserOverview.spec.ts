@@ -15,7 +15,7 @@ test.describe('User Overview Table', () => {
   test.skip('should display users with their information and roles correctly', async ({
     page,
   }) => {
-    await page.goto('/contacts')
+    await page.goto('/todo')
     await page.getByTestId(TEST_ID.SETTINGS.OPEN_DIALOG_BUTTON).click()
     await expect(page.getByTestId(TEST_ID.SETTINGS.DIALOG)).toBeVisible()
     await page.getByTestId(TEST_ID.SETTINGS.SIDEBAR.USER_BUTTON).click()
@@ -73,7 +73,7 @@ test.describe('User update role modal', () => {
       }),
     )
 
-    await page.goto('/contacts')
+    await page.goto('/todo')
     await page.getByTestId(TEST_ID.SETTINGS.OPEN_DIALOG_BUTTON).click()
     await expect(page.getByTestId(TEST_ID.SETTINGS.DIALOG)).toBeVisible()
 
