@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
   usePagination,
+  useVcToast,
   VcButton,
   VcIcon,
 } from '@wisemen/vue-core-components'
@@ -11,9 +12,11 @@ import {
 
 import AppPage from '@/components/layout/AppPage.vue'
 import TableErrorState from '@/components/table/TableErrorState.vue'
+import { useApiErrorToast } from '@/composables/api-error-toast/apiErrorToast.composable'
 import { useDocumentTitle } from '@/composables/document-title/documentTitle.composable'
 import type { TodoIndex } from '@/models/todo/index/todoIndex.model'
 import type { TodoIndexPagination } from '@/models/todo/index/todoIndexPagination.model'
+import { useTodoDeleteMutation } from '@/modules/todo/api/mutations/todoDelete.mutation'
 import { useTodoIndexQuery } from '@/modules/todo/api/queries/todoIndex.query'
 import TodoCreateDialog from '@/modules/todo/features/overview/components/TodoCreateDialog.vue'
 import TodoList from '@/modules/todo/features/overview/components/TodoList.vue'
@@ -28,6 +31,9 @@ const pagination = usePagination<TodoIndexPagination>({
 })
 
 const todoIndexQuery = useTodoIndexQuery(pagination.paginationOptions)
+const todoDeleteMutation = useTodoDeleteMutation()
+const toast = useVcToast()
+const apiErrorToast = useApiErrorToast()
 
 const isDialogOpen = ref<boolean>(false)
 
@@ -40,7 +46,6 @@ function closeDialog(): void {
 }
 
 function handleSuccess(): void {
-  // Refresh the todo list after successful creation
   todoIndexQuery.refetch()
 }
 
@@ -50,8 +55,24 @@ function handleEditTodo(todo: TodoIndex): void {
 }
 
 function handleDeleteTodo(todo: TodoIndex): void {
-  // TODO: Delete todo
-  console.log('Delete todo:', todo)
+  todoDeleteMutation.execute({
+    params: {
+      todoUuid: todo.uuid,
+    },
+  }).then((result) => {
+    result.match(
+      () => {
+        toast.success({
+          title: 'Success',
+          description: 'Todo deleted successfully',
+        })
+        todoIndexQuery.refetch()
+      },
+      (error) => {
+        apiErrorToast.show(error)
+      },
+    )
+  })
 }
 
 const isLoading = computed<boolean>(() => todoIndexQuery.isLoading.value)
