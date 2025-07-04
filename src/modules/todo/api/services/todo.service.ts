@@ -36,12 +36,13 @@ export class TodoService {
 
   static async deleteByUuid(todoUuid: TodoUuid): Promise<Result<void, Error>> {
     const response = await ResultAsync.fromPromise(deleteTodoV1({
+      responseValidator: undefined,
       path: {
         todoUuid,
       },
     }), () => new Error('Failed to delete todo'))
 
-    return response.map(() => {})
+    return response.map((res) => res.data as void)
   }
 
   static async getAll(
@@ -64,11 +65,12 @@ export class TodoService {
     const dto = TodoUpdateTransformer.toDto(form)
     const response = await ResultAsync.fromPromise(updateTodoV1({
       body: dto,
+      responseValidator: undefined,
       path: {
         todoUuid,
       },
     }), () => new Error('Failed to update todo'))
 
-    return response.map(() => {})
+    return response.map((res) => res.data as void)
   }
 }
