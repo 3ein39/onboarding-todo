@@ -1,3 +1,4 @@
+import { CalendarDateTransformer } from '@/models/date/calendarDate.transformer'
 import type { TodoCreateDto } from '@/models/todo/create/todoCreateDto.model'
 import type { TodoCreateForm } from '@/models/todo/create/todoCreateForm.model'
 import type { TodoIndex } from '@/models/todo/index/todoIndex.model'
@@ -14,7 +15,7 @@ export class TodoIndexTransformer {
       uuid: dto.uuid as TodoUuid,
       title: dto.title,
       createdAt: dto.createdAt,
-      dueDate: dto.deadline,
+      dueDate: CalendarDateTransformer.fromNullableDto(dto.deadline),
       updatedAt: dto.updatedAt,
       isCompleted: dto.completed,
       description: dto.description,
@@ -36,36 +37,20 @@ export class TodoIndexPaginationTransformer {
 }
 
 export class TodoCreateTransformer {
-  private static formatDateToYYYYMMDD(date: Date): string {
-    const year = date.getFullYear()
-    const month = String(date.getMonth() + 1).padStart(2, '0')
-    const day = String(date.getDate()).padStart(2, '0')
-
-    return `${year}-${month}-${day}`
-  }
-
   static toDto(form: TodoCreateForm): TodoCreateDto {
     return {
       title: form.title,
-      deadline: form.deadline ? TodoCreateTransformer.formatDateToYYYYMMDD(form.deadline) : null,
+      deadline: CalendarDateTransformer.toNullableDto(form.deadline),
       description: form.description,
     }
   }
 }
 
 export class TodoUpdateTransformer {
-  private static formatDateToYYYYMMDD(date: Date): string {
-    const year = date.getFullYear()
-    const month = String(date.getMonth() + 1).padStart(2, '0')
-    const day = String(date.getDate()).padStart(2, '0')
-
-    return `${year}-${month}-${day}`
-  }
-
   static toDto(form: TodoUpdateForm): TodoUpdateDto {
     return {
       title: form.title,
-      deadline: form.deadline ? TodoUpdateTransformer.formatDateToYYYYMMDD(form.deadline) : null,
+      deadline: CalendarDateTransformer.toNullableDto(form.deadline),
       description: form.description,
     }
   }
@@ -73,7 +58,7 @@ export class TodoUpdateTransformer {
   static toForm(todo: TodoIndex): TodoUpdateForm {
     return {
       title: todo.title,
-      deadline: todo.dueDate ? new Date(todo.dueDate) : null,
+      deadline: todo.dueDate,
       description: todo.description,
     }
   }

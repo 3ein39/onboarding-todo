@@ -1,8 +1,10 @@
 import { z } from 'zod'
 
+import { calendarDateSchema } from '@/models/date/calendarDate.model'
+
 export const todoUpdateFormSchema = z.object({
   title: z.string().min(1),
-  deadline: z.date().nullable(),
+  deadline: calendarDateSchema.nullable(),
   description: z.string().nullable(),
 })
 
