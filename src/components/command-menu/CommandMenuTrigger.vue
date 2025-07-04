@@ -39,9 +39,10 @@ const commandMenuDialog = useVcDialog({
             <button
               type="button"
               class="
-                flex h-10 min-w-72 cursor-text items-center justify-between
+                flex h-10 w-md min-w-72 cursor-text items-center justify-between
                 gap-md rounded-md border border-(--solitude) bg-white px-lg
                 outline-offset-0 outline-brand-500
+                sm:w-xl
               "
               v-bind="commandMenuDialog.getTriggerProps()"
               @click="commandMenuDialog.open()"

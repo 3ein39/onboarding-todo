@@ -9,7 +9,11 @@ const props = defineProps<{
 
 <template>
   <main
-    class="flex size-full flex-col overflow-hidden rounded-tl-4xl bg-primary"
+    class="
+      mx-auto flex w-md min-w-72 flex-col overflow-hidden rounded-tl-4xl
+      bg-primary
+      sm:w-xl
+    "
   >
     <AppPageContainer class="py-4xl">
       <AppGroup justify="between">
