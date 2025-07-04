@@ -1,3 +1,5 @@
+import type { TodoCreateDto } from '@/models/todo/create/todoCreateDto.model'
+import type { TodoCreateForm } from '@/models/todo/create/todoCreateForm.model'
 import type { TodoIndex } from '@/models/todo/index/todoIndex.model'
 import type { TodoIndexDto } from '@/models/todo/index/todoIndexDto.model'
 import type { TodoIndexPagination } from '@/models/todo/index/todoIndexPagination.model'
@@ -27,6 +29,24 @@ export class TodoIndexPaginationTransformer {
           : undefined,
       },
       sort: pagination.sort,
+    }
+  }
+}
+
+export class TodoCreateTransformer {
+  private static formatDateToYYYYMMDD(date: Date): string {
+    const year = date.getFullYear()
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const day = String(date.getDate()).padStart(2, '0')
+
+    return `${year}-${month}-${day}`
+  }
+
+  static toDto(form: TodoCreateForm): TodoCreateDto {
+    return {
+      title: form.title,
+      deadline: form.deadline ? TodoCreateTransformer.formatDateToYYYYMMDD(form.deadline) : null,
+      description: form.description,
     }
   }
 }
