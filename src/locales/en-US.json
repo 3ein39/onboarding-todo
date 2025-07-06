@@ -140,6 +140,8 @@
   "module.todo.delete_button": "Delete",
   "module.todo.create_title": "Create Todo",
   "module.todo.update_title": "Update Todo",
+  "module.todo.close_dialog": "Close dialog",
+  "module.todo.todo_options": "Todo options",
   "module.todo.success.title": "Success",
   "module.todo.success.created": "Todo created successfully",
   "module.todo.success.updated": "Todo updated successfully",

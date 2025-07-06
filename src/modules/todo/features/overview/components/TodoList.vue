@@ -5,6 +5,7 @@ import {
   VcDropdownMenuGroup,
   VcDropdownMenuItem,
   VcIcon,
+  VcIconButton,
 } from '@wisemen/vue-core-components'
 import {
   computed,
@@ -102,17 +103,15 @@ const todoItems = computed<TodoIndex[]>(() => {
             popover-align="end"
           >
             <template #trigger>
-              <button
-                type="button"
-                class="
-                  ml-auto p-1 text-gray-500
-                  hover:cursor-pointer hover:text-gray-700
-                "
-              >
-                <VcIcon
-                  icon="todoMenuDots"
-                />
-              </button>
+              <VcIconButton
+                :label="i18n.t('module.todo.todo_options')"
+                :class-config="{
+                  icon: 'flex items-center justify-center',
+                }"
+                icon="todoMenuDots"
+                variant="tertiary"
+                class="ml-auto"
+              />
             </template>
 
             <template #content>
