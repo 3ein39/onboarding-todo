@@ -14,6 +14,8 @@
   "module.todo.delete_button": "Verwijderen",
   "module.todo.create_title": "Nieuwe to do",
   "module.todo.update_title": "Bewerk to do",
+  "module.todo.close_dialog": "Dialoog sluiten",
+  "module.todo.todo_options": "To do opties",
   "module.todo.success.title": "Gelukt",
   "module.todo.success.created": "To do succesvol aangemaakt",
   "module.todo.success.updated": "To do succesvol bijgewerkt",

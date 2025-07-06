@@ -5,6 +5,7 @@ import {
   VcDateField,
   VcDialog,
   VcFormField,
+  VcIconButton,
   VcTextarea,
   VcTextField,
 } from '@wisemen/vue-core-components'
@@ -95,28 +96,12 @@ function onClose(): void {
         <h2 class="text-2xl font-bold">
           {{ i18n.t('module.todo.create_todo') }}
         </h2>
-        <button
-          type="button"
-          class="
-            text-gray-400
-            hover:text-gray-600
-          "
+        <VcIconButton
+          :label="i18n.t('module.todo.close_dialog')"
+          icon="close"
+          variant="tertiary"
           @click="onClose"
-        >
-          <svg
-            class="h-6 w-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
+        />
       </div>
 
       <form
