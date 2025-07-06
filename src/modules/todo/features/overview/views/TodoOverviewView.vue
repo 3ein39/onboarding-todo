@@ -52,16 +52,16 @@ function closeDialog(): void {
   selectedTodo.value = undefined
 }
 
-function handleSuccess(): void {
+function onSuccess(): void {
   todoIndexQuery.refetch()
 }
 
-function handleEditTodo(todo: TodoIndex): void {
+function onEditTodo(todo: TodoIndex): void {
   selectedTodo.value = todo
   isDialogOpen.value = true
 }
 
-function handleDeleteTodo(todo: TodoIndex): void {
+function onDeleteTodo(todo: TodoIndex): void {
   todoDeleteMutation.execute({
     params: {
       todoUuid: todo.uuid,
@@ -82,7 +82,7 @@ function handleDeleteTodo(todo: TodoIndex): void {
   })
 }
 
-function handleToggleComplete(todo: TodoIndex): void {
+function onToggleComplete(todo: TodoIndex): void {
   todoToggleCompletionMutation.execute({
     params: {
       todoUuid: todo.uuid,
@@ -126,9 +126,9 @@ const paginationData = computed<TodoIndexPagination>(() => ({
       :is-loading="isLoading"
       :data="todoIndexQuery.data.value?.data || []"
       :pagination="paginationData"
-      @edit-todo="handleEditTodo"
-      @delete-todo="handleDeleteTodo"
-      @toggle-complete="handleToggleComplete"
+      @edit-todo="onEditTodo"
+      @delete-todo="onDeleteTodo"
+      @toggle-complete="onToggleComplete"
     />
 
     <VcButton
@@ -151,7 +151,7 @@ const paginationData = computed<TodoIndexPagination>(() => ({
       :is-open="isDialogOpen"
       :todo="selectedTodo"
       @close="closeDialog"
-      @success="handleSuccess"
+      @success="onSuccess"
     />
   </AppPage>
 </template>

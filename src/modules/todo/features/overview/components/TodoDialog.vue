@@ -104,11 +104,11 @@ const title = form.register('title')
 const description = form.register('description')
 const deadline = form.register('deadline')
 
-function handleClose(): void {
+function onClose(): void {
   emit('close')
 }
 
-async function handleDelete(): Promise<void> {
+async function onDelete(): Promise<void> {
   if (!props.todo) {
     return
   }
@@ -154,7 +154,7 @@ const submitButtonText = computed<string>(() => {
       overlay: 'bg-gray-950/25 backdrop-blur-none',
       content: 'shadow-sm shadow-brand-500/2',
     }"
-    @close="handleClose"
+    @close="onClose"
   >
     <div
       class="
@@ -174,7 +174,7 @@ const submitButtonText = computed<string>(() => {
             text-gray-400
             hover:text-gray-600
           "
-          @click="handleClose"
+          @click="onClose"
         >
           <svg
             class="h-6 w-6"
@@ -247,7 +247,7 @@ const submitButtonText = computed<string>(() => {
             type="button"
             size="lg"
             variant="destructive-tertiary"
-            @click="handleDelete"
+            @click="onDelete"
           >
             {{ i18n.t('module.todo.delete_button') }}
           </VcButton>

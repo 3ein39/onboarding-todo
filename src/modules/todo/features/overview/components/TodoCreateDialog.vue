@@ -69,7 +69,7 @@ const title = form.register('title')
 const description = form.register('description')
 const deadline = form.register('deadline')
 
-function handleClose(): void {
+function onClose(): void {
   emit('close')
 }
 </script>
@@ -81,7 +81,7 @@ function handleClose(): void {
       overlay: 'bg-gray-950/25 backdrop-blur-none',
       content: 'shadow-sm shadow-brand-500/2',
     }"
-    @close="handleClose"
+    @close="onClose"
   >
     <div
       class="
@@ -101,7 +101,7 @@ function handleClose(): void {
             text-gray-400
             hover:text-gray-600
           "
-          @click="handleClose"
+          @click="onClose"
         >
           <svg
             class="h-6 w-6"
