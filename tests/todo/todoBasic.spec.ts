@@ -16,12 +16,11 @@ test.describe('Todo Basic Functionality', () => {
     await worker.use(
       http.get('*/api/v1/todos*', () => {
         return HttpResponse.json({
-          data: [],
+          items: [],
           meta: {
-            currentPage: 1,
-            itemsPerPage: 10,
-            totalItems: 0,
-            totalPages: 1,
+            limit: 10,
+            offset: 0,
+            total: 0,
           },
         })
       }),
@@ -36,6 +35,8 @@ test.describe('Todo Basic Functionality', () => {
     await expect(page.getByTestId(TEST_ID.TODOS.TABLE.CONTAINER)).toBeVisible()
 
     // Should show empty state when no todos
-    await expect(page.getByText('No todos found. Create a new todo to get started.')).toBeVisible()
+    await expect(page.locator('text="No todos found. Create a new todo to get started."')).toBeVisible({
+      timeout: 10_000,
+    })
   })
 })

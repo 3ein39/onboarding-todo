@@ -61,8 +61,8 @@ const form = useForm({
       result.match(
         () => {
           toast.success({
-            title: 'Success',
-            description: 'Todo updated successfully',
+            title: i18n.t('module.todo.success.title'),
+            description: i18n.t('module.todo.success.updated'),
           })
           emit('success')
           emit('close')
@@ -80,8 +80,8 @@ const form = useForm({
       result.match(
         () => {
           toast.success({
-            title: 'Success',
-            description: 'Todo created successfully',
+            title: i18n.t('module.todo.success.title'),
+            description: i18n.t('module.todo.success.created'),
           })
           emit('success')
           emit('close')
@@ -122,8 +122,8 @@ async function handleDelete(): Promise<void> {
   result.match(
     () => {
       toast.success({
-        title: 'Success',
-        description: 'Todo deleted successfully',
+        title: i18n.t('module.todo.success.title'),
+        description: i18n.t('module.todo.success.deleted'),
       })
       emit('success')
       emit('close')
@@ -136,14 +136,14 @@ async function handleDelete(): Promise<void> {
 
 const dialogTitle = computed<string>(() => {
   return isUpdateMode.value
-    ? 'Update Todo'
-    : 'Create Todo'
+    ? i18n.t('module.todo.update_title')
+    : i18n.t('module.todo.create_title')
 })
 
 const submitButtonText = computed<string>(() => {
   return isUpdateMode.value
-    ? 'Update'
-    : 'Create'
+    ? i18n.t('module.todo.update_button')
+    : i18n.t('module.todo.create_button')
 })
 </script>
 
@@ -249,7 +249,7 @@ const submitButtonText = computed<string>(() => {
             variant="destructive-tertiary"
             @click="handleDelete"
           >
-            Delete
+            {{ i18n.t('module.todo.delete_button') }}
           </VcButton>
 
           <VcButton

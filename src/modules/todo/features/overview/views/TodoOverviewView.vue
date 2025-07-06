@@ -9,6 +9,7 @@ import {
   computed,
   ref,
 } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import AppPage from '@/components/layout/AppPage.vue'
 import TableErrorState from '@/components/table/TableErrorState.vue'
@@ -23,8 +24,9 @@ import TodoDialog from '@/modules/todo/features/overview/components/TodoDialog.v
 import TodoList from '@/modules/todo/features/overview/components/TodoList.vue'
 
 const documentTitle = useDocumentTitle()
+const i18n = useI18n()
 
-documentTitle.set('Mijn to do\'s')
+documentTitle.set(i18n.t('module.todo.title'))
 
 const pagination = usePagination<TodoIndexPagination>({
   isRouteQueryEnabled: true,
@@ -68,8 +70,8 @@ function handleDeleteTodo(todo: TodoIndex): void {
     result.match(
       () => {
         toast.success({
-          title: 'Success',
-          description: 'Todo deleted successfully',
+          title: i18n.t('module.todo.success.title'),
+          description: i18n.t('module.todo.success.deleted'),
         })
         todoIndexQuery.refetch()
       },
@@ -90,8 +92,8 @@ function handleToggleComplete(todo: TodoIndex): void {
     result.match(
       () => {
         toast.success({
-          title: 'Success',
-          description: todo.isCompleted ? 'Todo unchecked' : 'Todo completed',
+          title: i18n.t('module.todo.success.title'),
+          description: todo.isCompleted ? i18n.t('module.todo.success.unchecked') : i18n.t('module.todo.success.completed'),
         })
         todoIndexQuery.refetch()
       },

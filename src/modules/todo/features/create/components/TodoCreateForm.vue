@@ -41,8 +41,8 @@ const form = useForm({
     result.match(
       () => {
         toast.success({
-          title: 'Success',
-          description: 'Todo created successfully',
+          title: i18n.t('module.todo.success.title'),
+          description: i18n.t('module.todo.success.created'),
         })
         props.onSuccess?.()
       },
