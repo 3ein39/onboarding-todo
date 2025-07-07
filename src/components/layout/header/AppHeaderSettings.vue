@@ -24,7 +24,7 @@ const dialog = useSettingsDialog()
         v-bind="dialog.getTriggerProps()"
         :label="i18n.t('component.sidebar.settings')"
         :class-config="{
-          root: 'text-primary-on-brand/80 data-[loading=false]:not-disabled:hover:bg-primary/10 rounded-full',
+          root: 'text-primary data-[loading=false]:not-disabled:hover:bg-primary/10 rounded-full',
         }"
         :test-id="TEST_ID.SETTINGS.OPEN_DIALOG_BUTTON"
         variant="tertiary"

@@ -9,21 +9,21 @@
     <g clip-path="url(#clip0_463_4961)">
       <path
         d="M6 15V18C6 19.6568 7.34315 21 9 21H18C19.6568 21 21 19.6568 21 18V6C21 4.34315 19.6568 3 18 3H9C7.34315 3 6 4.34315 6 6V9"
-        stroke="#475161"
+        class="stroke-current"
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
       <path
         d="M12 15L15 12L12 9"
-        stroke="#475161"
+        class="stroke-current"
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
       <path
         d="M3 12H15"
-        stroke="#475161"
+        class="stroke-current"
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"

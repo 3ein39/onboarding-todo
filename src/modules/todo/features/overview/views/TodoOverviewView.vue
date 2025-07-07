@@ -127,7 +127,7 @@ const paginationData = computed<TodoIndexPagination>(() => ({
 </script>
 
 <template>
-  <AppPage title="Mijn to do’s">
+  <AppPage :title="i18n.t('module.todo.title')">
     <TableErrorState
       v-if="error"
       :error="error"

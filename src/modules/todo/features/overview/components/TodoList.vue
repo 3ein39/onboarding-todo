@@ -98,7 +98,7 @@ const todoItems = computed<TodoIndex[]>(() => {
             :is-popover-arrow-hidden="true"
             :popover-side-offset="0"
             :class-config="{
-              content: 'min-w-0 !text-primary',
+              content: 'min-w-0',
             }"
             popover-align="end"
           >
@@ -106,7 +106,7 @@ const todoItems = computed<TodoIndex[]>(() => {
               <VcIconButton
                 :label="i18n.t('module.todo.todo_options')"
                 :class-config="{
-                  icon: 'flex items-center justify-center',
+                  icon: 'flex items-center text-primary justify-center',
                 }"
                 icon="todoMenuDots"
                 variant="tertiary"
@@ -158,14 +158,14 @@ const todoItems = computed<TodoIndex[]>(() => {
 
     <div
       v-if="isLoading"
-      class="p-4 text-center text-gray-500"
+      class="p-4 text-center text-tertiary"
     >
       {{ i18n.t('module.todo.loading') }}
     </div>
 
     <div
       v-else-if="todoItems.length === 0"
-      class="p-4 text-center text-gray-500"
+      class="p-4 text-center text-tertiary"
     >
       {{ i18n.t('module.todo.empty_state') }}
     </div>

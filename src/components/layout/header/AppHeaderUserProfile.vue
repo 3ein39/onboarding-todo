@@ -72,13 +72,13 @@ function onSignOut(): void {
             :name="fullName ?? ''"
             :class-config="{
               root: 'size-8 bg-quaternary/50',
-              fallback: 'text-xs text-white',
+              fallback: 'text-xs text-primary-on-brand',
             }"
           />
 
           <VcIcon
             icon="chevronRight"
-            class="size-5 rotate-90 text-white/50"
+            class="size-5 rotate-90 text-primary-on-brand/50"
           />
         </AppGroup>
       </VcButton>
