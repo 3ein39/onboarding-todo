@@ -68,7 +68,7 @@ const todoItems = computed<TodoIndex[]>(() => {
 <template>
   <div
     :data-test-id="TEST_ID.TODOS.TABLE.CONTAINER"
-    class="space-y-2"
+    class="flex flex-col gap-md"
   >
     <div
       v-for="todo in todoItems"

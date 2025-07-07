@@ -176,7 +176,7 @@ const submitButtonText = computed<string>(() => {
       </div>
 
       <form
-        class="space-y-6"
+        class="flex flex-col gap-md"
         @submit.prevent="form.submit()"
       >
         <div>
