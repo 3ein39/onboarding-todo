@@ -2,6 +2,7 @@
 import AppGroup from '@/components/app/group/AppGroup.vue'
 import CommandMenuTrigger from '@/components/command-menu/CommandMenuTrigger.vue'
 import AppHeaderLogout from '@/components/layout/header/AppHeaderLogout.vue'
+import AppHeaderSettings from '@/components/layout/header/AppHeaderSettings.vue'
 
 const emit = defineEmits<{
   signOut: []
@@ -25,6 +26,7 @@ function onSignOut(): void {
     <AppGroup
       justify="end"
     >
+      <AppHeaderSettings />
       <AppHeaderLogout @sign-out="onSignOut" />
     </AppGroup>
   </div>
