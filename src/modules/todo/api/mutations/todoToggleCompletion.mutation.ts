@@ -16,10 +16,10 @@ export function useTodoToggleCompletionMutation() {
       } = queryOptions.params
 
       if (isCompleted) {
-        return await TodoService.uncheckTodo(todoUuid)
+        return await TodoService.checkTodo(todoUuid)
       }
       else {
-        return await TodoService.checkTodo(todoUuid)
+        return await TodoService.uncheckTodo(todoUuid)
       }
     },
     queryKeysToInvalidate: {

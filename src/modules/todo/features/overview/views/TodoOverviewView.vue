@@ -40,6 +40,7 @@ const toast = useVcToast()
 const apiErrorToast = useApiErrorToast()
 
 const selectedTodo = ref<TodoIndex | undefined>(undefined)
+const optimisticUpdates = ref<Map<string, Partial<TodoIndex>>>(new Map())
 
 const dialog = useVcDialog({
   component: () => import('@/modules/todo/features/overview/components/TodoDialog.vue'),
@@ -95,21 +96,29 @@ function onDeleteTodo(todo: TodoIndex): void {
 }
 
 function onToggleComplete(todo: TodoIndex): void {
+  const targetCompletedStatus = !todo.isCompleted
+
+  optimisticUpdates.value.set(todo.uuid, {
+    isCompleted: targetCompletedStatus,
+  })
+
   todoToggleCompletionMutation.execute({
     params: {
       todoUuid: todo.uuid,
-      isCompleted: todo.isCompleted,
+      isCompleted: targetCompletedStatus,
     },
   }).then((result) => {
     result.match(
       () => {
+        optimisticUpdates.value.delete(todo.uuid)
         toast.success({
           title: i18n.t('module.todo.success.title'),
-          description: todo.isCompleted ? i18n.t('module.todo.success.unchecked') : i18n.t('module.todo.success.completed'),
+          description: targetCompletedStatus ? i18n.t('module.todo.success.completed') : i18n.t('module.todo.success.unchecked'),
         })
         todoIndexQuery.refetch()
       },
       (error) => {
+        optimisticUpdates.value.delete(todo.uuid)
         apiErrorToast.show(error)
       },
     )
@@ -118,6 +127,29 @@ function onToggleComplete(todo: TodoIndex): void {
 
 const isLoading = computed<boolean>(() => todoIndexQuery.isLoading.value)
 const error = computed<unknown>(() => todoIndexQuery.error.value)
+
+const todosData = computed<typeof todoIndexQuery.data.value>(() => {
+  const apiData = todoIndexQuery.data.value
+
+  if (!apiData?.data) {
+    return apiData
+  }
+
+  return {
+    ...apiData,
+    data: apiData.data.map((todo) => {
+      const optimisticUpdate = optimisticUpdates.value.get(todo.uuid)
+
+      return optimisticUpdate
+        ? {
+            ...todo,
+            ...optimisticUpdate,
+          }
+        : todo
+    }),
+  }
+})
+
 const paginationData = computed<TodoIndexPagination>(() => ({
   filter: pagination.paginationOptions.value.filter || {
     isCompleted: undefined,
@@ -136,7 +168,7 @@ const paginationData = computed<TodoIndexPagination>(() => ({
     <TodoList
       v-else
       :is-loading="isLoading"
-      :data="todoIndexQuery.data.value?.data || []"
+      :data="todosData?.data || []"
       :pagination="paginationData"
       @edit-todo="onEditTodo"
       @delete-todo="onDeleteTodo"
