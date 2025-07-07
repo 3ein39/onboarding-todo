@@ -23,7 +23,6 @@ import { useTodoUpdateMutation } from '@/modules/todo/api/mutations/todoUpdate.m
 import { toFormField } from '@/utils/formango.util'
 
 interface Props {
-  isOpen: boolean
   todo?: TodoIndex
 }
 
@@ -150,7 +149,6 @@ const submitButtonText = computed<string>(() => {
 
 <template>
   <VcDialog
-    :is-open="isOpen"
     :class-config="{
       overlay: 'bg-gray-950/25 backdrop-blur-none',
       content: 'shadow-sm shadow-brand-500/2',

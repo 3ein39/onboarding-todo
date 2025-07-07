@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
   usePagination,
+  useVcDialog,
   useVcToast,
   VcButton,
   VcIcon,
@@ -20,7 +21,6 @@ import type { TodoIndexPagination } from '@/models/todo/index/todoIndexPaginatio
 import { useTodoDeleteMutation } from '@/modules/todo/api/mutations/todoDelete.mutation'
 import { useTodoToggleCompletionMutation } from '@/modules/todo/api/mutations/todoToggleCompletion.mutation'
 import { useTodoIndexQuery } from '@/modules/todo/api/queries/todoIndex.query'
-import TodoDialog from '@/modules/todo/features/overview/components/TodoDialog.vue'
 import TodoList from '@/modules/todo/features/overview/components/TodoList.vue'
 
 const documentTitle = useDocumentTitle()
@@ -39,26 +39,38 @@ const todoToggleCompletionMutation = useTodoToggleCompletionMutation()
 const toast = useVcToast()
 const apiErrorToast = useApiErrorToast()
 
-const isDialogOpen = ref<boolean>(false)
 const selectedTodo = ref<TodoIndex | undefined>(undefined)
+
+const dialog = useVcDialog({
+  component: () => import('@/modules/todo/features/overview/components/TodoDialog.vue'),
+})
 
 function openDialog(): void {
   selectedTodo.value = undefined
-  isDialogOpen.value = true
+  dialog.open({
+    todo: selectedTodo.value,
+    onClose: closeDialog,
+    onSuccess: handleSuccess,
+  })
 }
 
 function closeDialog(): void {
-  isDialogOpen.value = false
+  dialog.close()
   selectedTodo.value = undefined
 }
 
-function onSuccess(): void {
+function handleSuccess(): void {
   todoIndexQuery.refetch()
+  closeDialog()
 }
 
 function onEditTodo(todo: TodoIndex): void {
   selectedTodo.value = todo
-  isDialogOpen.value = true
+  dialog.open({
+    todo: selectedTodo.value,
+    onClose: closeDialog,
+    onSuccess: handleSuccess,
+  })
 }
 
 function onDeleteTodo(todo: TodoIndex): void {
@@ -146,12 +158,5 @@ const paginationData = computed<TodoIndexPagination>(() => ({
         size="lg"
       />
     </VcButton>
-
-    <TodoDialog
-      :is-open="isDialogOpen"
-      :todo="selectedTodo"
-      @close="closeDialog"
-      @success="onSuccess"
-    />
   </AppPage>
 </template>
