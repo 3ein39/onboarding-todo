@@ -27,8 +27,9 @@ export function useTodoToggleCompletionMutation() {
           ],
         },
         (old: PaginatedData<TodoIndex> | undefined) => {
-          if (!old)
+          if (!old) {
             return old
+          }
 
           return {
             ...old,
