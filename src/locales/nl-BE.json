@@ -2,7 +2,7 @@
   "module.notification.notification_center.title": "Notifications",
   "module.notification.notification_center.trigger.label": "Notifications",
   "module.todo.empty_state": "Geen todos gevonden. Maak een nieuwe todo aan om te beginnen.",
-  "module.todo.title": "My to do's",
+  "module.todo.title": "Mijn to do’s",
   "module.todo.create_todo": "Nieuwe to do",
   "module.todo.edit_todo": "Bewerk to do",
   "module.todo.delete_todo": "Verwijder to do",
