@@ -50,27 +50,31 @@ function openDialog(): void {
   selectedTodo.value = undefined
   dialog.open({
     todo: selectedTodo.value,
-    onClose: closeDialog,
-    onSuccess: handleSuccess,
+    onClose: () => {
+      dialog.close()
+      selectedTodo.value = undefined
+    },
+    onSuccess: () => {
+      todoIndexQuery.refetch()
+      dialog.close()
+      selectedTodo.value = undefined
+    },
   })
-}
-
-function closeDialog(): void {
-  dialog.close()
-  selectedTodo.value = undefined
-}
-
-function handleSuccess(): void {
-  todoIndexQuery.refetch()
-  closeDialog()
 }
 
 function onEditTodo(todo: TodoIndex): void {
   selectedTodo.value = todo
   dialog.open({
     todo: selectedTodo.value,
-    onClose: closeDialog,
-    onSuccess: handleSuccess,
+    onClose: () => {
+      dialog.close()
+      selectedTodo.value = undefined
+    },
+    onSuccess: () => {
+      todoIndexQuery.refetch()
+      dialog.close()
+      selectedTodo.value = undefined
+    },
   })
 }
 
