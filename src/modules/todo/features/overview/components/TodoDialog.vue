@@ -13,6 +13,7 @@ import { useForm } from 'formango'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
+import AppForm from '@/components/form/AppForm.vue'
 import { useApiErrorToast } from '@/composables/api-error-toast/apiErrorToast.composable'
 import { todoCreateFormSchema } from '@/models/todo/create/todoCreateForm.model'
 import type { TodoIndex } from '@/models/todo/index/todoIndex.model'
@@ -175,9 +176,9 @@ const submitButtonText = computed<string>(() => {
         />
       </div>
 
-      <form
+      <AppForm
+        :form="form"
         class="flex flex-col gap-md"
-        @submit.prevent="form.submit()"
       >
         <div>
           <label
@@ -265,7 +266,7 @@ const submitButtonText = computed<string>(() => {
             {{ submitButtonText }}
           </VcButton>
         </div>
-      </form>
+      </AppForm>
     </div>
   </VcDialog>
 </template>
