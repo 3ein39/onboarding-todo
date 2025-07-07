@@ -73,7 +73,7 @@ useProvideCommandMenuContext({
             borderRadius: '14px',
           }"
           layout-id="dialog"
-          class="w-150"
+          class="sm:w-150"
         >
           <VcDialogTitle
             class="sr-only"

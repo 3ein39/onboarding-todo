@@ -10,8 +10,7 @@ const props = defineProps<{
 <template>
   <main
     class="
-      mx-auto flex w-md min-w-72 flex-col overflow-hidden rounded-tl-4xl
-      bg-primary
+      mx-auto flex flex-col overflow-hidden rounded-tl-4xl bg-primary
       sm:w-xl
     "
   >

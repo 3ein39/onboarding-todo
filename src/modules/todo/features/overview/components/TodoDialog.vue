@@ -152,17 +152,12 @@ const submitButtonText = computed<string>(() => {
   <VcDialog
     :class-config="{
       overlay: 'bg-overlay/80 backdrop-blur-none',
-      content: 'shadow-sm shadow-brand-500/2',
+      content: 'shadow-sm w-[90%] shadow-brand-500/2 sm:w-md md:w-lg lg:w-xl',
     }"
     @close="onClose"
   >
     <div
-      class="
-        flex max-h-[90vh] max-w-xl flex-col rounded-lg bg-primary p-6
-        sm:w-md
-        md:w-lg
-        lg:w-xl
-      "
+      class="flex max-h-[90vh] max-w-xl flex-col rounded-lg bg-primary p-6"
     >
       <div class="mb-6 flex items-center justify-between">
         <h2 class="text-2xl font-bold text-primary">
@@ -257,7 +252,7 @@ const submitButtonText = computed<string>(() => {
             :is-loading="form.isSubmitting.value"
             :is-disabled="title.errors.value.length > 0"
             :class-config="{
-              root: 'flex-1 disabled:text-secondary',
+              root: 'flex-1 disabled:dark:text-secondary',
             }"
             type="submit"
             size="lg"

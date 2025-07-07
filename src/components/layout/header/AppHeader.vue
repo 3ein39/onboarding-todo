@@ -15,19 +15,21 @@ function onSignOut(): void {
 
 <template>
   <div
-    class="grid grid-cols-3 p-md"
+    class="flex items-center justify-between p-md"
   >
-    <div id="header-left" />
+    <div class="flex-1" />
 
-    <div class="flex w-full justify-center">
+    <div class="flex justify-center">
       <CommandMenuTrigger />
     </div>
 
-    <AppGroup
-      justify="end"
-    >
-      <AppHeaderSettings />
-      <AppHeaderLogout @sign-out="onSignOut" />
-    </AppGroup>
+    <div class="flex flex-1 justify-end">
+      <AppGroup
+        justify="end"
+      >
+        <AppHeaderSettings />
+        <AppHeaderLogout @sign-out="onSignOut" />
+      </AppGroup>
+    </div>
   </div>
 </template>
