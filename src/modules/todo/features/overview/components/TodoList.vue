@@ -5,11 +5,13 @@ import {
   VcDropdownMenuGroup,
   VcDropdownMenuItem,
   VcIcon,
+  VcIconButton,
 } from '@wisemen/vue-core-components'
 import {
   computed,
   type PropType,
 } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { TEST_ID } from '@/constants/testId.constant'
 import type { TodoIndex } from '@/models/todo/index/todoIndex.model'
@@ -35,6 +37,8 @@ const emit = defineEmits<{
   editTodo: [todo: TodoIndex]
   toggleComplete: [todo: TodoIndex]
 }>()
+
+const i18n = useI18n()
 
 function formatDate(date: Date): string {
   return date.toLocaleDateString('nl-NL', {
@@ -99,30 +103,28 @@ const todoItems = computed<TodoIndex[]>(() => {
             popover-align="end"
           >
             <template #trigger>
-              <button
-                type="button"
-                class="
-                  ml-auto p-1 text-gray-500
-                  hover:cursor-pointer hover:text-gray-700
-                "
-              >
-                <VcIcon
-                  icon="todoMenuDots"
-                />
-              </button>
+              <VcIconButton
+                :label="i18n.t('module.todo.todo_options')"
+                :class-config="{
+                  icon: 'flex items-center justify-center',
+                }"
+                icon="todoMenuDots"
+                variant="tertiary"
+                class="ml-auto"
+              />
             </template>
 
             <template #content>
               <VcDropdownMenuGroup>
                 <VcDropdownMenuItem
-                  label="Bewerk to do"
+                  :label="i18n.t('module.todo.edit_todo')"
                   icon="edit"
                   @select="onEditTodo(todo)"
                 />
                 <hr class="mx-auto w-[90%] border-(--periwinkel)">
                 <VcDropdownMenuItem
                   :is-destructive="true"
-                  label="Verwijder to do"
+                  :label="i18n.t('module.todo.delete_todo')"
                   icon="trash"
                   @select="onDeleteTodo(todo)"
                 />
@@ -158,14 +160,14 @@ const todoItems = computed<TodoIndex[]>(() => {
       v-if="isLoading"
       class="p-4 text-center text-gray-500"
     >
-      Loading todos...
+      {{ i18n.t('module.todo.loading') }}
     </div>
 
     <div
       v-else-if="todoItems.length === 0"
       class="p-4 text-center text-gray-500"
     >
-      No todos found. Create a new todo to get started.
+      {{ i18n.t('module.todo.empty_state') }}
     </div>
   </div>
 </template>
