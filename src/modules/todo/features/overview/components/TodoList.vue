@@ -73,7 +73,7 @@ const todoItems = computed<TodoIndex[]>(() => {
     <div
       v-for="todo in todoItems"
       :key="todo.uuid"
-      class="flex gap-4 rounded-3xl bg-(--catskill-white) p-4"
+      class="flex gap-4 rounded-3xl bg-secondary p-4"
     >
       <div
         :data-test-id="TEST_ID.TODOS.TABLE.COMPLETED"
@@ -98,7 +98,7 @@ const todoItems = computed<TodoIndex[]>(() => {
             :is-popover-arrow-hidden="true"
             :popover-side-offset="0"
             :class-config="{
-              content: 'min-w-0',
+              content: 'min-w-0 !text-primary',
             }"
             popover-align="end"
           >
@@ -121,7 +121,7 @@ const todoItems = computed<TodoIndex[]>(() => {
                   icon="edit"
                   @select="onEditTodo(todo)"
                 />
-                <hr class="mx-auto w-[90%] border-(--periwinkel)">
+                <hr class="mx-auto w-[90%] border-secondary">
                 <VcDropdownMenuItem
                   :is-destructive="true"
                   :label="i18n.t('module.todo.delete_todo')"
@@ -135,7 +135,7 @@ const todoItems = computed<TodoIndex[]>(() => {
         <p
           v-if="todo.description"
           :data-test-id="TEST_ID.TODOS.TABLE.DESCRIPTION"
-          class="mb-2 text-sm font-medium text-(--shadow-blue)"
+          class="mb-2 text-sm font-medium text-secondary"
         >
           {{ todo.description }}
         </p>
@@ -144,7 +144,7 @@ const todoItems = computed<TodoIndex[]>(() => {
           :data-test-id="TEST_ID.TODOS.TABLE.DUE_DATE"
           :class="todo.dueDate.getTime() < Date.now()
             ? 'text-error-primary'
-            : 'text-(--shadow-blue)'"
+            : 'text-secondary'"
           class="flex items-center text-sm font-medium"
         >
           <VcIcon

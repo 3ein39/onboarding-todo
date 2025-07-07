@@ -181,11 +181,16 @@ const submitButtonText = computed<string>(() => {
         class="space-y-6"
         @submit.prevent="form.submit()"
       >
-        <div class="[&_label]:font-semibold">
+        <div>
+          <label
+            for="title-input"
+            class="text-sm font-semibold text-primary"
+          >
+            {{ i18n.t('module.todo.title_field') }}
+            <span class="text-error-primary">*</span>
+          </label>
           <VcFormField
             v-bind="toFormField(title)"
-            :label="i18n.t('module.todo.title_field')"
-            :is-required="true"
             :class-config="{
               error: 'hidden',
             }"
@@ -196,30 +201,42 @@ const submitButtonText = computed<string>(() => {
               :placeholder="i18n.t('module.todo.title_field')"
               v-bind="toFormField(title)"
               :class-config="{
-                input: 'bg-[var(--catskill-white)]',
+                input: 'bg-secondary',
               }"
             />
           </VcFormField>
         </div>
 
-        <div class="[&_label]:font-semibold">
+        <div>
+          <label
+            for="description-input"
+            class="text-sm font-semibold text-primary"
+          >
+            {{ i18n.t('module.todo.description_field') }}
+          </label>
           <VcTextarea
+            id="description-input"
             v-bind="toFormField(description)"
-            :label="i18n.t('module.todo.description_field')"
             :placeholder="i18n.t('module.todo.description_field')"
             :rows="3"
             :class-config="{
-              input: 'bg-[var(--catskill-white)]',
+              input: 'bg-secondary',
             }"
           />
         </div>
 
-        <div class="[&_label]:font-semibold">
+        <div>
+          <label
+            for="deadline-input"
+            class="text-sm font-semibold text-primary"
+          >
+            {{ i18n.t('module.todo.deadline_field') }}
+          </label>
           <VcDateField
+            id="deadline-input"
             v-bind="toFormField(deadline)"
-            :label="i18n.t('module.todo.deadline_field')"
             :class-config="{
-              root: 'bg-[var(--catskill-white)]',
+              root: 'bg-secondary',
             }"
           />
         </div>
@@ -241,7 +258,7 @@ const submitButtonText = computed<string>(() => {
             :is-loading="form.isSubmitting.value"
             :is-disabled="title.errors.value.length > 0"
             :class-config="{
-              root: 'disabled:bg-[var(--shadow-blue)] flex-1',
+              root: 'flex-1',
             }"
             type="submit"
             size="lg"
