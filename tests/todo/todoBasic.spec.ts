@@ -28,13 +28,10 @@ test.describe('Todo Basic Functionality', () => {
 
     await page.goto('/todos')
 
-    // Wait for the page to load
     await page.waitForLoadState()
 
-    // Check if we can see the todo container
     await expect(page.getByTestId(TEST_ID.TODOS.TABLE.CONTAINER)).toBeVisible()
 
-    // Should show empty state when no todos
     await expect(page.locator('text="No todos found. Create a new todo to get started."')).toBeVisible({
       timeout: 10_000,
     })
