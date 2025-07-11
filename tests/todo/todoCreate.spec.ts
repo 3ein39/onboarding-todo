@@ -86,4 +86,66 @@ test.describe('Todo Creation', () => {
 
     await expect(page.getByRole('dialog')).toBeHidden()
   })
+  test('should create a new todo', async ({
+    http,
+    page,
+    worker,
+  }) => {
+    const NEW_TODO = new TodoIndexDtoBuilder()
+      .withTitle('New Todo')
+      .withDescription('Some Description')
+      .build()
+
+    let getTodosCallCount = 0
+
+    await worker.use(
+      http.get('/api/v1/todos', () => {
+        getTodosCallCount += 1
+
+        if (getTodosCallCount > 1) {
+          return HttpResponse.json(PaginationUtil.getJson([
+            NEW_TODO,
+          ]))
+        }
+
+        return HttpResponse.json(PaginationUtil.getJson([]))
+      }),
+    )
+    await worker.use(
+      http.post('/api/v1/todos', () => {
+        return HttpResponse.json({
+          uuid: NEW_TODO.uuid,
+        }, {
+          status: 201,
+        })
+      }),
+    )
+    await page.goto('/todos')
+    await expect(page.getByTestId(TEST_ID.TODOS.TABLE.CONTAINER)).toBeVisible()
+    await page.getByTestId(TEST_ID.TODOS.OVERVIEW.CREATE_BUTTON).click()
+    await expect(page.getByRole('dialog')).toBeVisible()
+    await page.getByRole('textbox', {
+      name: 'Title *',
+    }).click()
+    await page.getByRole('textbox', {
+      name: 'Title ',
+    }).fill('New Todo')
+    await page.getByRole('textbox', {
+      name: 'Description',
+    }).click()
+    await page.getByRole('textbox', {
+      name: 'Description',
+    }).fill('Some Description')
+
+    await page.getByTestId('todos-create-submit-button').click()
+
+    await expect(page.getByText('Todo created successfully')).toBeVisible()
+
+    await expect(page.getByTestId(TEST_ID.TODOS.TABLE.CONTAINER)).toBeVisible()
+
+    const todoItems = page.getByTestId(TEST_ID.TODOS.TABLE.TITLE)
+
+    await expect(todoItems).toHaveCount(1)
+    await expect(todoItems.nth(0)).toContainText(NEW_TODO.title)
+  })
 })
