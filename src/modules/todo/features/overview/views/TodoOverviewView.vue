@@ -16,6 +16,7 @@ import AppPage from '@/components/layout/AppPage.vue'
 import TableErrorState from '@/components/table/TableErrorState.vue'
 import { useApiErrorToast } from '@/composables/api-error-toast/apiErrorToast.composable'
 import { useDocumentTitle } from '@/composables/document-title/documentTitle.composable'
+import { TEST_ID } from '@/constants/testId.constant'
 import type { TodoIndex } from '@/models/todo/index/todoIndex.model'
 import type { TodoIndexPagination } from '@/models/todo/index/todoIndexPagination.model'
 import { useTodoDeleteMutation } from '@/modules/todo/api/mutations/todoDelete.mutation'
@@ -154,13 +155,13 @@ const paginationData = computed<TodoIndexPagination>(() => ({
     />
 
     <VcButton
+      :data-test-id="TEST_ID.TODOS.OVERVIEW.CREATE_BUTTON"
       class="
         !fixed right-6 bottom-6 z-50 h-14 w-14 rounded-full shadow-lg
         transition-all duration-200
         hover:scale-105
       "
       variant="primary"
-      data-test-id="create-todo-button"
       @click="openDialog"
     >
       <VcIcon

@@ -33,6 +33,10 @@ export const TEST_ID = {
     MALFORMED_RESPONSE_TOAST: 'shared-malformed-response-toast',
   },
   TODOS: {
+    CREATE: {
+      BUTTON: 'todos-create-button',
+      SUBMIT_BUTTON: 'todos-create-submit-button',
+    },
     OVERVIEW: {
       CREATE_BUTTON: 'todos-overview-create-button',
     },

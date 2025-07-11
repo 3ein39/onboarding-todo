@@ -15,6 +15,7 @@ import { useI18n } from 'vue-i18n'
 
 import AppForm from '@/components/form/AppForm.vue'
 import { useApiErrorToast } from '@/composables/api-error-toast/apiErrorToast.composable'
+import { TEST_ID } from '@/constants/testId.constant'
 import { todoCreateFormSchema } from '@/models/todo/create/todoCreateForm.model'
 import type { TodoIndex } from '@/models/todo/index/todoIndex.model'
 import type { TodoUpdateForm } from '@/models/todo/update/todoUpdateForm.model'
@@ -254,6 +255,7 @@ const submitButtonText = computed<string>(() => {
             :class-config="{
               root: 'flex-1 disabled:dark:text-secondary',
             }"
+            :data-test-id="TEST_ID.TODOS.CREATE.SUBMIT_BUTTON"
             type="submit"
             size="lg"
             variant="primary"

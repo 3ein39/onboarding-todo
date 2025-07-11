@@ -53,3 +53,37 @@ test.describe('Todo Listing', () => {
     await expect(completedItems.nth(0)).not.toBeChecked()
   })
 })
+
+test.describe('Todo Creation', () => {
+  test('should close create dialog when cancel or escape', async ({
+    http,
+    page,
+    worker,
+  }) => {
+    await worker.use(
+      http.get('*/api/v1/todos*', () => {
+        return HttpResponse.json(PaginationUtil.getJson([]))
+      }),
+    )
+
+    await page.goto('/todos')
+
+    await expect(page.getByTestId(TEST_ID.TODOS.TABLE.CONTAINER)).toBeVisible()
+
+    await page.getByTestId(TEST_ID.TODOS.OVERVIEW.CREATE_BUTTON).click()
+
+    await expect(page.getByRole('dialog')).toBeVisible()
+
+    await page.keyboard.press('Escape')
+
+    await expect(page.getByRole('dialog')).toBeHidden()
+
+    await page.getByTestId(TEST_ID.TODOS.OVERVIEW.CREATE_BUTTON).click()
+
+    await page.getByRole('button', {
+      name: /close/i,
+    }).click()
+
+    await expect(page.getByRole('dialog')).toBeHidden()
+  })
+})
