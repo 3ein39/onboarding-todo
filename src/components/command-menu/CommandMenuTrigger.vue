@@ -22,7 +22,7 @@ const commandMenuDialog = useVcDialog({
 </script>
 
 <template>
-  <VcThemeProvider appearance="dark">
+  <VcThemeProvider>
     <MotionConfig
       :transition="{
         duration: 0.3,
@@ -39,10 +39,12 @@ const commandMenuDialog = useVcDialog({
             <button
               type="button"
               class="
-                flex h-10 w-md min-w-72 cursor-text items-center justify-between
-                gap-md rounded-md border border-(--solitude) bg-white px-lg
+                flex h-10 w-3xs cursor-text items-center justify-between gap-md
+                rounded-md border border-secondary bg-primary px-lg
                 outline-offset-0 outline-brand-500
-                sm:w-xl
+                sm:w-md sm:min-w-72
+                md:w-lg
+                lg:w-xl
               "
               v-bind="commandMenuDialog.getTriggerProps()"
               @click="commandMenuDialog.open()"
@@ -52,7 +54,7 @@ const commandMenuDialog = useVcDialog({
                   layout-id="placeholder"
                   class="
                     inline-block items-center justify-between text-sm
-                    whitespace-nowrap text-black !opacity-30
+                    whitespace-nowrap text-tertiary !opacity-30
                   "
                 >
                   {{ i18n.t('component.command_menu.placeholder') }}
@@ -62,7 +64,7 @@ const commandMenuDialog = useVcDialog({
               <VcKeyboardShortcut
                 :class-config="{
                   keyboardKey: {
-                    key: '!bg-brand-700',
+                    key: '!bg-brand-solid',
                   },
                 }"
                 :keyboard-keys="['meta', 'k']"

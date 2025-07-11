@@ -11,6 +11,7 @@ import {
   createTodoV1,
   deleteTodoV1,
   getTodosV1,
+  SortDirection,
   uncheckTodoV1,
   updateTodoV1,
 } from '@/client'
@@ -63,6 +64,13 @@ export class TodoService {
   ): Promise<PaginatedData<TodoIndex>> {
     const query = new PaginationParamsBuilder(paginationOptions)
       .build(TodoIndexPaginationTransformer.toDto)
+
+    query.sort = [
+      {
+        key: 'deadline',
+        order: SortDirection.ASC,
+      },
+    ]
 
     const response = await getTodosV1({
       query,

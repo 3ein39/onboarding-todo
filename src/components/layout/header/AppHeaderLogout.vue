@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import {
-  VcButton,
-  VcIcon,
-} from '@wisemen/vue-core-components'
+import { VcIconButton } from '@wisemen/vue-core-components'
+import { useI18n } from 'vue-i18n'
 
+import AppButtonTooltip from '@/components/app/tooltip/AppButtonTooltip.vue'
 import { TEST_ID } from '@/constants/testId.constant.ts'
 
 const emit = defineEmits<{
   signOut: []
 }>()
+
+const i18n = useI18n()
 
 function onSignOut(): void {
   emit('signOut')
@@ -16,15 +17,18 @@ function onSignOut(): void {
 </script>
 
 <template>
-  <VcButton
-    :test-id="TEST_ID.APP_PAGE.USER_BUTTON"
-    variant="tertiary"
-    @click="onSignOut"
+  <AppButtonTooltip
+    :label="i18n.t('component.sidebar.footer.sign_out')"
   >
-    <VcIcon
+    <VcIconButton
+      :test-id="TEST_ID.APP_PAGE.USER_BUTTON"
+      :class-config="{
+        root: 'text-primary data-[loading=false]:not-disabled:hover:bg-primary/10 rounded-full',
+      }"
+      :label="i18n.t('component.sidebar.footer.sign_out')"
       icon="logout"
-      class="size-5"
+      variant="tertiary"
       @click="onSignOut"
     />
-  </VcButton>
+  </AppButtonTooltip>
 </template>

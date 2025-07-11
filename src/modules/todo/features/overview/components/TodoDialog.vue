@@ -13,6 +13,7 @@ import { useForm } from 'formango'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
+import AppForm from '@/components/form/AppForm.vue'
 import { useApiErrorToast } from '@/composables/api-error-toast/apiErrorToast.composable'
 import { todoCreateFormSchema } from '@/models/todo/create/todoCreateForm.model'
 import type { TodoIndex } from '@/models/todo/index/todoIndex.model'
@@ -23,7 +24,6 @@ import { useTodoUpdateMutation } from '@/modules/todo/api/mutations/todoUpdate.m
 import { toFormField } from '@/utils/formango.util'
 
 interface Props {
-  isOpen: boolean
   todo?: TodoIndex
 }
 
@@ -105,11 +105,11 @@ const title = form.register('title')
 const description = form.register('description')
 const deadline = form.register('deadline')
 
-function handleClose(): void {
+function onClose(): void {
   emit('close')
 }
 
-async function handleDelete(): Promise<void> {
+async function onDelete(): Promise<void> {
   if (!props.todo) {
     return
   }
@@ -150,42 +150,41 @@ const submitButtonText = computed<string>(() => {
 
 <template>
   <VcDialog
-    :is-open="isOpen"
     :class-config="{
-      overlay: 'bg-gray-950/25 backdrop-blur-none',
-      content: 'shadow-sm shadow-brand-500/2',
+      overlay: 'bg-overlay/80 backdrop-blur-none',
+      content: 'shadow-sm w-[90%] shadow-brand-500/2 sm:w-md md:w-lg lg:w-xl',
     }"
-    @close="handleClose"
+    @close="onClose"
   >
     <div
-      class="
-        flex max-h-[90vh] max-w-xl flex-col rounded-lg bg-white p-6
-        sm:w-md
-        md:w-lg
-        lg:w-xl
-      "
+      class="flex max-h-[90vh] max-w-xl flex-col rounded-lg bg-primary p-6"
     >
       <div class="mb-6 flex items-center justify-between">
-        <h2 class="text-2xl font-bold">
+        <h2 class="text-2xl font-bold text-primary">
           {{ dialogTitle }}
         </h2>
         <VcIconButton
           :label="i18n.t('module.todo.close_dialog')"
           icon="close"
           variant="tertiary"
-          @click="handleClose"
+          @click="onClose"
         />
       </div>
 
-      <form
-        class="space-y-6"
-        @submit.prevent="form.submit()"
+      <AppForm
+        :form="form"
+        class="flex flex-col gap-md"
       >
-        <div class="[&_label]:font-semibold">
+        <div>
+          <label
+            for="title-input"
+            class="text-sm font-semibold text-primary"
+          >
+            {{ i18n.t('module.todo.title_field') }}
+            <span class="text-error-primary">*</span>
+          </label>
           <VcFormField
             v-bind="toFormField(title)"
-            :label="i18n.t('module.todo.title_field')"
-            :is-required="true"
             :class-config="{
               error: 'hidden',
             }"
@@ -196,30 +195,42 @@ const submitButtonText = computed<string>(() => {
               :placeholder="i18n.t('module.todo.title_field')"
               v-bind="toFormField(title)"
               :class-config="{
-                input: 'bg-[var(--catskill-white)]',
+                input: 'bg-secondary',
               }"
             />
           </VcFormField>
         </div>
 
-        <div class="[&_label]:font-semibold">
+        <div>
+          <label
+            for="description-input"
+            class="text-sm font-semibold text-primary"
+          >
+            {{ i18n.t('module.todo.description_field') }}
+          </label>
           <VcTextarea
+            id="description-input"
             v-bind="toFormField(description)"
-            :label="i18n.t('module.todo.description_field')"
             :placeholder="i18n.t('module.todo.description_field')"
             :rows="3"
             :class-config="{
-              input: 'bg-[var(--catskill-white)]',
+              input: 'bg-secondary',
             }"
           />
         </div>
 
-        <div class="[&_label]:font-semibold">
+        <div>
+          <label
+            for="deadline-input"
+            class="text-sm font-semibold text-primary"
+          >
+            {{ i18n.t('module.todo.deadline_field') }}
+          </label>
           <VcDateField
+            id="deadline-input"
             v-bind="toFormField(deadline)"
-            :label="i18n.t('module.todo.deadline_field')"
             :class-config="{
-              root: 'bg-[var(--catskill-white)]',
+              root: 'bg-secondary',
             }"
           />
         </div>
@@ -232,7 +243,7 @@ const submitButtonText = computed<string>(() => {
             type="button"
             size="lg"
             variant="destructive-tertiary"
-            @click="handleDelete"
+            @click="onDelete"
           >
             {{ i18n.t('module.todo.delete_button') }}
           </VcButton>
@@ -241,7 +252,7 @@ const submitButtonText = computed<string>(() => {
             :is-loading="form.isSubmitting.value"
             :is-disabled="title.errors.value.length > 0"
             :class-config="{
-              root: 'disabled:bg-[var(--shadow-blue)] flex-1',
+              root: 'flex-1 disabled:dark:text-secondary',
             }"
             type="submit"
             size="lg"
@@ -250,7 +261,7 @@ const submitButtonText = computed<string>(() => {
             {{ submitButtonText }}
           </VcButton>
         </div>
-      </form>
+      </AppForm>
     </div>
   </VcDialog>
 </template>

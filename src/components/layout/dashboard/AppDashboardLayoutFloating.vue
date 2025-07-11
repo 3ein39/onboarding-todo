@@ -13,7 +13,7 @@ import { RouterView } from 'vue-router'
     }"
     class="
       grid h-dvh grid-cols-[auto_1fr] grid-rows-[auto_1fr] overflow-hidden
-      bg-(--catskill-white)
+      bg-secondary
     "
   >
     <Primitive

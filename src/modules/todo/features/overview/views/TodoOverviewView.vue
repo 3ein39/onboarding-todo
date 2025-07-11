@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
   usePagination,
+  useVcDialog,
   useVcToast,
   VcButton,
   VcIcon,
@@ -20,7 +21,6 @@ import type { TodoIndexPagination } from '@/models/todo/index/todoIndexPaginatio
 import { useTodoDeleteMutation } from '@/modules/todo/api/mutations/todoDelete.mutation'
 import { useTodoToggleCompletionMutation } from '@/modules/todo/api/mutations/todoToggleCompletion.mutation'
 import { useTodoIndexQuery } from '@/modules/todo/api/queries/todoIndex.query'
-import TodoDialog from '@/modules/todo/features/overview/components/TodoDialog.vue'
 import TodoList from '@/modules/todo/features/overview/components/TodoList.vue'
 
 const documentTitle = useDocumentTitle()
@@ -39,29 +39,45 @@ const todoToggleCompletionMutation = useTodoToggleCompletionMutation()
 const toast = useVcToast()
 const apiErrorToast = useApiErrorToast()
 
-const isDialogOpen = ref<boolean>(false)
 const selectedTodo = ref<TodoIndex | undefined>(undefined)
+
+const dialog = useVcDialog({
+  component: () => import('@/modules/todo/features/overview/components/TodoDialog.vue'),
+})
 
 function openDialog(): void {
   selectedTodo.value = undefined
-  isDialogOpen.value = true
+  dialog.open({
+    todo: selectedTodo.value,
+    onClose: () => {
+      dialog.close()
+      selectedTodo.value = undefined
+    },
+    onSuccess: () => {
+      todoIndexQuery.refetch()
+      dialog.close()
+      selectedTodo.value = undefined
+    },
+  })
 }
 
-function closeDialog(): void {
-  isDialogOpen.value = false
-  selectedTodo.value = undefined
-}
-
-function handleSuccess(): void {
-  todoIndexQuery.refetch()
-}
-
-function handleEditTodo(todo: TodoIndex): void {
+function onEditTodo(todo: TodoIndex): void {
   selectedTodo.value = todo
-  isDialogOpen.value = true
+  dialog.open({
+    todo: selectedTodo.value,
+    onClose: () => {
+      dialog.close()
+      selectedTodo.value = undefined
+    },
+    onSuccess: () => {
+      todoIndexQuery.refetch()
+      dialog.close()
+      selectedTodo.value = undefined
+    },
+  })
 }
 
-function handleDeleteTodo(todo: TodoIndex): void {
+function onDeleteTodo(todo: TodoIndex): void {
   todoDeleteMutation.execute({
     params: {
       todoUuid: todo.uuid,
@@ -82,20 +98,21 @@ function handleDeleteTodo(todo: TodoIndex): void {
   })
 }
 
-function handleToggleComplete(todo: TodoIndex): void {
+function onToggleComplete(todo: TodoIndex): void {
+  const targetCompletedStatus = !todo.isCompleted
+
   todoToggleCompletionMutation.execute({
     params: {
       todoUuid: todo.uuid,
-      isCompleted: todo.isCompleted,
+      isCompleted: targetCompletedStatus,
     },
   }).then((result) => {
     result.match(
       () => {
         toast.success({
           title: i18n.t('module.todo.success.title'),
-          description: todo.isCompleted ? i18n.t('module.todo.success.unchecked') : i18n.t('module.todo.success.completed'),
+          description: targetCompletedStatus ? i18n.t('module.todo.success.completed') : i18n.t('module.todo.success.unchecked'),
         })
-        todoIndexQuery.refetch()
       },
       (error) => {
         apiErrorToast.show(error)
@@ -106,6 +123,11 @@ function handleToggleComplete(todo: TodoIndex): void {
 
 const isLoading = computed<boolean>(() => todoIndexQuery.isLoading.value)
 const error = computed<unknown>(() => todoIndexQuery.error.value)
+
+const todosData = computed<typeof todoIndexQuery.data.value>(() => {
+  return todoIndexQuery.data.value
+})
+
 const paginationData = computed<TodoIndexPagination>(() => ({
   filter: pagination.paginationOptions.value.filter || {
     isCompleted: undefined,
@@ -115,7 +137,7 @@ const paginationData = computed<TodoIndexPagination>(() => ({
 </script>
 
 <template>
-  <AppPage title="Mijn to do’s">
+  <AppPage :title="i18n.t('module.todo.title')">
     <TableErrorState
       v-if="error"
       :error="error"
@@ -124,11 +146,11 @@ const paginationData = computed<TodoIndexPagination>(() => ({
     <TodoList
       v-else
       :is-loading="isLoading"
-      :data="todoIndexQuery.data.value?.data || []"
+      :data="todosData?.data || []"
       :pagination="paginationData"
-      @edit-todo="handleEditTodo"
-      @delete-todo="handleDeleteTodo"
-      @toggle-complete="handleToggleComplete"
+      @edit-todo="onEditTodo"
+      @delete-todo="onDeleteTodo"
+      @toggle-complete="onToggleComplete"
     />
 
     <VcButton
@@ -146,12 +168,5 @@ const paginationData = computed<TodoIndexPagination>(() => ({
         size="lg"
       />
     </VcButton>
-
-    <TodoDialog
-      :is-open="isDialogOpen"
-      :todo="selectedTodo"
-      @close="closeDialog"
-      @success="handleSuccess"
-    />
   </AppPage>
 </template>

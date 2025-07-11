@@ -68,12 +68,12 @@ const todoItems = computed<TodoIndex[]>(() => {
 <template>
   <div
     :data-test-id="TEST_ID.TODOS.TABLE.CONTAINER"
-    class="space-y-2"
+    class="flex flex-col gap-md"
   >
     <div
       v-for="todo in todoItems"
       :key="todo.uuid"
-      class="flex gap-4 rounded-3xl bg-(--catskill-white) p-4"
+      class="flex gap-4 rounded-3xl bg-secondary p-4"
     >
       <div
         :data-test-id="TEST_ID.TODOS.TABLE.COMPLETED"
@@ -106,7 +106,7 @@ const todoItems = computed<TodoIndex[]>(() => {
               <VcIconButton
                 :label="i18n.t('module.todo.todo_options')"
                 :class-config="{
-                  icon: 'flex items-center justify-center',
+                  icon: 'flex items-center text-primary justify-center',
                 }"
                 icon="todoMenuDots"
                 variant="tertiary"
@@ -121,7 +121,7 @@ const todoItems = computed<TodoIndex[]>(() => {
                   icon="edit"
                   @select="onEditTodo(todo)"
                 />
-                <hr class="mx-auto w-[90%] border-(--periwinkel)">
+                <hr class="mx-auto w-[90%] border-secondary">
                 <VcDropdownMenuItem
                   :is-destructive="true"
                   :label="i18n.t('module.todo.delete_todo')"
@@ -135,7 +135,7 @@ const todoItems = computed<TodoIndex[]>(() => {
         <p
           v-if="todo.description"
           :data-test-id="TEST_ID.TODOS.TABLE.DESCRIPTION"
-          class="mb-2 text-sm font-medium text-(--shadow-blue)"
+          class="mb-2 text-sm font-medium text-secondary"
         >
           {{ todo.description }}
         </p>
@@ -144,7 +144,7 @@ const todoItems = computed<TodoIndex[]>(() => {
           :data-test-id="TEST_ID.TODOS.TABLE.DUE_DATE"
           :class="todo.dueDate.getTime() < Date.now()
             ? 'text-error-primary'
-            : 'text-(--shadow-blue)'"
+            : 'text-secondary'"
           class="flex items-center text-sm font-medium"
         >
           <VcIcon
@@ -158,14 +158,14 @@ const todoItems = computed<TodoIndex[]>(() => {
 
     <div
       v-if="isLoading"
-      class="p-4 text-center text-gray-500"
+      class="p-4 text-center text-tertiary"
     >
       {{ i18n.t('module.todo.loading') }}
     </div>
 
     <div
       v-else-if="todoItems.length === 0"
-      class="p-4 text-center text-gray-500"
+      class="p-4 text-center text-tertiary"
     >
       {{ i18n.t('module.todo.empty_state') }}
     </div>
