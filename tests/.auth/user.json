@@ -10,7 +10,7 @@
         },
         {
           "name": "preferences",
-          "value": "{\"appearance\":\"light\",\"enableHighContrast\":false,\"enableKeyboardShortcutHints\":true,\"fontSize\":\"default\",\"language\":\"en-US\"}"
+          "value": "{\"appearance\":\"light\",\"enableHighContrast\":false,\"enableKeyboardShortcutHints\":true,\"fontSize\":\"default\",\"language\":\"nl-BE\"}"
         }
       ]
     }

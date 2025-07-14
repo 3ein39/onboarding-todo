@@ -104,6 +104,7 @@ const todoItems = computed<TodoIndex[]>(() => {
           >
             <template #trigger>
               <VcIconButton
+                :data-test-id="TEST_ID.TODOS.TABLE.MENU_BUTTON"
                 :label="i18n.t('module.todo.todo_options')"
                 :class-config="{
                   icon: 'flex items-center text-primary justify-center',
@@ -123,6 +124,7 @@ const todoItems = computed<TodoIndex[]>(() => {
                 />
                 <hr class="mx-auto w-[90%] border-secondary">
                 <VcDropdownMenuItem
+                  :data-test-id="TEST_ID.TODOS.DELETE.MENU_ITEM"
                   :is-destructive="true"
                   :label="i18n.t('module.todo.delete_todo')"
                   icon="trash"

@@ -37,6 +37,10 @@ export const TEST_ID = {
       BUTTON: 'todos-create-button',
       SUBMIT_BUTTON: 'todos-create-submit-button',
     },
+    DELETE: {
+      CONFIRM_BUTTON: 'todos-delete-confirm-button',
+      MENU_ITEM: 'todos-delete-menu-item',
+    },
     OVERVIEW: {
       CREATE_BUTTON: 'todos-overview-create-button',
     },
@@ -46,6 +50,7 @@ export const TEST_ID = {
       CREATED_AT: 'todos-table-created-at',
       DESCRIPTION: 'todos-table-description',
       DUE_DATE: 'todos-table-due-date',
+      MENU_BUTTON: 'todos-table-menu-button',
       TITLE: 'todos-table-title',
     },
   },
